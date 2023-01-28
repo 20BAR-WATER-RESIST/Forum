@@ -32,7 +32,12 @@ namespace Forum.Pages
 
         public async Task OnGet()
         {
-            Categories = await _forumDbContext.Categories.ToListAsync();
+            Categories = await _forumDbContext.Categories
+                               .Include(s=>s.Topics)
+                               .ThenInclude(e=>e.Comments)
+                               .AsNoTracking()
+                               .ToListAsync();
+            
         }
     }
 }

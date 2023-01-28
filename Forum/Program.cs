@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.Configure<RequestLocalizationOptions>(options => { options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("pl-PL"); });
 builder.Services.AddDbContext<Forum.Context.ForumDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ForumConnectionString")));
 
 var app = builder.Build();

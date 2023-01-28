@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 
 namespace Forum.Models
 {
@@ -10,6 +12,7 @@ namespace Forum.Models
         public string TopicName { get; set; }
         public string TopicDescription { get; set; }
         public string? TopicTags { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d/M/yyyy}")]
         public DateTime TopicAddedDate { get; set; }
         public DateTime? TopicUpdatedDate { get; set; }
         public DateTime? TopicDeletedDate { get; set; }
