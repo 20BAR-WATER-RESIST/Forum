@@ -70,6 +70,17 @@
                         <button type="button" class="btn btn-link btn-sm btn-rounded">
                             Edit
                         </button>
+
+                        @*Treść ostatniego posta z danej kategorii*@
+                    @{
+                        var lastPostOfCurrentCategory = from cat in Model.Categories
+                                                                              from top in cat.Topics
+                                                                              where top.CategoryID == category.CategoryID
+                                                                              orderby top.TopicAddedDate descending
+                                                                              select top.TopicName;
+                    }
+                    <p>@lastPostOfCurrentCategory.FirstOrDefault()</p>
+
                     </td>
                 </tr>
         </tbody>
