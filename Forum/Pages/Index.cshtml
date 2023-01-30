@@ -3,8 +3,14 @@
 @{
     ViewData["Title"] = "Home page";
 
+    //IEnumerable<Models.Comment> numberOfPosts = from cat in Model.Categories
+    //                                            from top in cat.Topics
+    //                                            where top.CategoryID == 1
+    //                                            from comm in top.Comments
+    //                                            select comm;
 
-                  
+
+
 }
 
 <div class="text-center">
@@ -24,6 +30,8 @@
             <th>Ostatni post</th>
         </tr>
     </thead>
+
+
 
     @foreach(var category in Model.Categories){
             <tbody>
@@ -48,8 +56,14 @@
                         <p>@category.Topics.Count</p>
                     </td>
                     <td>
-
-                        
+@{
+                    IEnumerable<Models.Comment> numberOfPosts = from cat in Model.Categories
+                        from top in cat.Topics
+                        where top.CategoryID == category.CategoryID
+                        from comm in top.Comments
+                        select comm;
+}
+                    <p>@numberOfPosts.Count()</p>
 
                     </td>
                     <td>
@@ -58,8 +72,13 @@
                         </button>
                     </td>
                 </tr>
-            </tbody>
+        </tbody>
+
+
+
 }
+
+
 
 
 @*domyślny kod tablicy -> do usunięcia na samym końcu
@@ -94,3 +113,6 @@
     </tbody>
 *@
 </table>
+
+
+

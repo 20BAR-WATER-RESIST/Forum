@@ -12,7 +12,7 @@ namespace Forum.Models
         public bool IsActive { get; set; }
 
         public ICollection<Topic> Topics { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        //public ICollection<Comment> Comments { get; set; }
         public ICollection<User> Users { get; set; }
     }
 }

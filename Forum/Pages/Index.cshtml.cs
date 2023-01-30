@@ -21,23 +21,32 @@ namespace Forum.Pages
         //}
 
         private readonly ForumDbContext _forumDbContext;
-       // internal List<Categories> users = new List<Categories>();
+        internal List<Category> Categories = new List<Category>();
 
         public IndexModel(ForumDbContext forumDbContext)
         {
             _forumDbContext = forumDbContext;
+            Categories = _forumDbContext.Categories
+                   .Include(s => s.Topics)
+                   .ThenInclude(e => e.Comments)
+                   .AsNoTracking()
+                   .ToList();
         }
 
-        internal List<Category> Categories = new List<Category>();
+        //public IEnumerable<Category> Filter()
+        //{
+        //    var strcomm = from p in Categories
+        //                  where p.Topics.Contains(Comment)
+        //                  where
+        //}
+
+
 
         public async Task OnGet()
         {
-            Categories = await _forumDbContext.Categories
-                               .Include(s=>s.Topics)
-                               .ThenInclude(e=>e.Comments)
-                               .AsNoTracking()
-                               .ToListAsync();
             
         }
+
+
     }
 }
