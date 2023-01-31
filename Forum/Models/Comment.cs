@@ -7,6 +7,7 @@ namespace Forum.Models
     {
         public int CommentID { get; set; }
         public string CommentText { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d/M/yyyy}")]
         public DateTime CommentAddedTime { get; set; }
         public DateTime? CommentUpdatedTime { get; set; }
         public DateTime? CommentDeletedTime { get; set; }

@@ -22,6 +22,7 @@ namespace Forum.Pages
 
         private readonly ForumDbContext _forumDbContext;
         internal List<Category> Categories = new List<Category>();
+        internal List<User> Users = new List<User>();
 
         public IndexModel(ForumDbContext forumDbContext)
         {
@@ -31,6 +32,12 @@ namespace Forum.Pages
                    .ThenInclude(e => e.Comments)
                    .AsNoTracking()
                    .ToList();
+
+            Users = _forumDbContext.Users
+                .Include(u=>u.Topics)
+                .AsNoTracking()
+                .ToList();
+
         }
 
         //public IEnumerable<Category> Filter()
