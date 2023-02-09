@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Forum.Migrations
 {
-    [DbContext(typeof(ForumDbContext))]
+    [DbContext(typeof(DefaultDbContext))]
     [Migration("20230128011320_fixingrelationship")]
     partial class fixingrelationship
     {

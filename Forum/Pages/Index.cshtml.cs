@@ -1,59 +1,51 @@
 ﻿using Forum.Context;
+using Forum.Contracts;
 using Forum.Models;
+using Forum.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.AccessControl;
 
 namespace Forum.Pages
 {
     public class IndexModel : PageModel
     {
-        //private readonly ILogger<IndexModel> _logger;
+        private readonly ICategoryRepository<Category> _category;
+        private readonly ITopicRepository<Topic> _topic;
+        private readonly ICommentRepository<Comment> _comment;
 
-        //public IndexModel(ILogger<IndexModel> logger)
-        //{
-        //    _logger = logger;
-        //}
+        //internal List<User> Users = new List<User>();
 
-        //public void OnGet()
-        //{
 
-        //}
 
-        private readonly ForumDbContext _forumDbContext;
-        internal List<Category> Categories = new List<Category>();
-        internal List<User> Users = new List<User>();
-
-        public IndexModel(ForumDbContext forumDbContext)
+        public IndexModel(ICategoryRepository<Category> category, ITopicRepository<Topic> topic, ICommentRepository<Comment> comment)
         {
-            _forumDbContext = forumDbContext;
-            Categories = _forumDbContext.Categories
-                   .Include(s => s.Topics)
-                   .ThenInclude(e => e.Comments)
-                   .AsNoTracking()
-                   .ToList();
+            _category = category;
+            _topic = topic;
+            _comment = comment;
 
-            Users = _forumDbContext.Users
-                .Include(u=>u.Topics)
-                .AsNoTracking()
-                .ToList();
+            //Users = _forumDbContext.Users
+            //    .Include(u => u.Topics)
+            //    .AsNoTracking()
+            //    .ToList();
 
         }
 
-        //public IEnumerable<Category> Filter()
-        //{
-        //    var strcomm = from p in Categories
-        //                  where p.Topics.Contains(Comment)
-        //                  where
-        //}
-
-
+        public IEnumerable<Category> justCategories { get; private set; }
+        public IEnumerable<Topic> EachTopicRowOfCatID { get; private set; }
+        public Dictionary<int, int> numbersOfTopicsInCategory { get; private set; }
+        public Dictionary<int, int> numbersOfCommentsInTopics { get; private set; }
+        public Category Findings { get; set; }
 
         public async Task OnGet()
         {
-            
+            justCategories = _category.GetAll();
+            _category.LoadAllCategories();
+            _topic.LoadAllTopics();
+            EachTopicRowOfCatID = _topic.EachTopicRowOfCategoryID(justCategories);
+            numbersOfTopicsInCategory = _topic.TotalNumberOfTopics(justCategories);
+            numbersOfCommentsInTopics = _comment.TotalNumberOfComments(_topic.LoadAllTopics());
         }
-
-
     }
 }

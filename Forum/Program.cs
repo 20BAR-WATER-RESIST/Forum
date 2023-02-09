@@ -1,5 +1,8 @@
 
 using Forum.Context;
+using Forum.Contracts;
+using Forum.Models;
+using Forum.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.Configure<RequestLocalizationOptions>(options => { options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("pl-PL"); });
-builder.Services.AddDbContext<Forum.Context.ForumDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ForumConnectionString")));
+builder.Services.AddDbContext<DefaultDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ForumConnectionString")));
+builder.Services.AddScoped<ICategoryRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<ITopicRepository<Topic>, TopicRepository>();
+builder.Services.AddScoped<ICommentRepository<Comment>, CommentRepository>();
 
 var app = builder.Build();
 

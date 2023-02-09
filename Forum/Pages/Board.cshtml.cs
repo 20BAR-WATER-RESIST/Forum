@@ -8,11 +8,11 @@ namespace Forum.Pages
 {
     public class BoardModel : PageModel
     {
-        private readonly ForumDbContext _forumDbContext;
+        private readonly DefaultDbContext _forumDbContext;
 
         internal List<Topic> Topics = new List<Topic>();
 
-        public BoardModel(ForumDbContext forumDbContext)
+        public BoardModel(DefaultDbContext forumDbContext)
         {
             _forumDbContext= forumDbContext;
         }

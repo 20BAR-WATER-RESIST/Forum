@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Forum.Context
 {
-    public class ForumDbContext: DbContext
+    public class DefaultDbContext: DbContext
     {
-        public ForumDbContext(DbContextOptions<ForumDbContext> options) : base(options){ }
+        public DefaultDbContext(DbContextOptions<DefaultDbContext> options) : base(options){}
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Topic> Topics { get; set; }

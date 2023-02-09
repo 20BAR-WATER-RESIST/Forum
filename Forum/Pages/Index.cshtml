@@ -16,76 +16,76 @@
             <th>Tablica</th>
             <th>Wątków</th>
             <th>Postów</th>
-            <th>Ostatni post</th>
+            <th>Ostatni Temat</th>
         </tr>
     </thead>
 
-    @foreach(var category in Model.Categories){
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+    @foreach (var category in Model.justCategories)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
                          alt=""
                          style="width: 45px; height: 45px"
                          class="rounded-circle" />
-                            <div class="ms-3">
-                                <p class="fw-bold mb-1"></p>
-                                <p class="text-muted mb-0"></p>
-                            </div>
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1"></p>
+                            <p class="text-muted mb-0"></p>
                         </div>
-                    </td>
-                    <td>
+                    </div>
+                </td>
+                <td>
                     <a class="nav-link text-dark" asp-page="/Board" asp-route-id="@category.CategoryID" asp-route-title="@category.CategoryName">@category.CategoryName</a>
-                        <p class="text-muted mb-0">@category.CategoryDescription</p>
-                    </td>
-                    <td>
-                        <p>@category.Topics.Count</p>
-                    </td>
-                    <td>
-@{
-                    IEnumerable<Models.Comment> numberOfPosts = from cat in Model.Categories
-                                                                from top in cat.Topics
-                                                                where top.CategoryID == category.CategoryID
-                                                                from comm in top.Comments
-                                                                select comm;
-}
-                    <p>@numberOfPosts.Count()</p>
-
-                    </td>
-                    <td>
-
+                    <p class="text-muted mb-0">@category.CategoryDescription</p>
+                </td>
+                <td>
                     @{
-                        var lastPostOfCurrentCategory = from cat in Model.Categories
-                                                        from top in cat.Topics
-                                                        where top.CategoryID == category.CategoryID
-                                                        orderby top.TopicAddedDate descending
-                                                        select top.TopicName;
+                        var topicCounter = from t in Model.numbersOfTopicsInCategory
+                                           where t.Key == category.CategoryID
+                                           select t.Value;
+                        @topicCounter.FirstOrDefault()
+                    }
+                </td>
+                <td>
+                    @{
+                        var commentCounter = from t in Model.numbersOfCommentsInTopics
+                                           where t.Key == category.CategoryID
+                                           select t.Value;
+                        @commentCounter.FirstOrDefault()
                     }
 
+                </td>
+                <td>
+
                     @{
-                        var lastPostAuthorOfCurrentCategory = from usr in Model.Users
-                                                              from top in usr.Topics
-                                                              where top.CategoryID == category.CategoryID
-                                                              orderby top.TopicAddedDate descending
-                                                              select usr.UserName;                            
-                     }
+                        var top = from t in Model.EachTopicRowOfCatID
+                                  where t.CategoryID == category.CategoryID
+                                  select t.TopicName;
+
+                    }
+
+                    @*                    @{
+                var lastPostAuthorOfCurrentCategory = from usr in Model.Users
+                from top in usr.Topics
+                where top.CategoryID == category.CategoryID
+                orderby top.TopicAddedDate descending
+                select usr.UserName;
+                }*@
 
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
-                        @lastPostOfCurrentCategory.FirstOrDefault()
+                        @top.FirstOrDefault()
                     </button>
 
                     by
 
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
-                        @lastPostAuthorOfCurrentCategory.FirstOrDefault()
+                        @* @lastPostAuthorOfCurrentCategory.FirstOrDefault()*@
                     </button>
 
-                    </td>
-                </tr>
+                </td>
+            </tr>
         </tbody>
-}
+    }
 </table>
-
-
-
