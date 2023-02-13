@@ -14,38 +14,29 @@ namespace Forum.Pages
         private readonly ICategoryRepository<Category> _category;
         private readonly ITopicRepository<Topic> _topic;
         private readonly ICommentRepository<Comment> _comment;
+        private readonly IUserRepository<User> _user;
 
-        //internal List<User> Users = new List<User>();
-
-
-
-        public IndexModel(ICategoryRepository<Category> category, ITopicRepository<Topic> topic, ICommentRepository<Comment> comment)
+        public IndexModel(ICategoryRepository<Category> category, ITopicRepository<Topic> topic, ICommentRepository<Comment> comment, IUserRepository<User> user)
         {
             _category = category;
             _topic = topic;
             _comment = comment;
-
-            //Users = _forumDbContext.Users
-            //    .Include(u => u.Topics)
-            //    .AsNoTracking()
-            //    .ToList();
-
+            _user = user;
         }
 
         public IEnumerable<Category> justCategories { get; private set; }
         public IEnumerable<Topic> EachTopicRowOfCatID { get; private set; }
-        public Dictionary<int, int> numbersOfTopicsInCategory { get; private set; }
-        public Dictionary<int, int> numbersOfCommentsInTopics { get; private set; }
-        public Category Findings { get; set; }
+        public Dictionary<int, string> newestTopicsAuthors { get; private set; }
+        public Dictionary<int, int> numberOfTopicsInCategory { get; private set; }
+        public Dictionary<int, int> numberOfCommentsInCategory { get; private set; }
 
         public async Task OnGet()
         {
             justCategories = _category.GetAll();
-            _category.LoadAllCategories();
-            _topic.LoadAllTopics();
             EachTopicRowOfCatID = _topic.EachTopicRowOfCategoryID(justCategories);
-            numbersOfTopicsInCategory = _topic.TotalNumberOfTopics(justCategories);
-            numbersOfCommentsInTopics = _comment.TotalNumberOfComments(_topic.LoadAllTopics());
+            newestTopicsAuthors = _user.NewestTopicsAuthors(EachTopicRowOfCatID);
+            numberOfTopicsInCategory = _topic.TotalNumberOfTopics(justCategories);
+            numberOfCommentsInCategory = _comment.CategoryCommentCounter(_topic.GetAll());
         }
     }
 }

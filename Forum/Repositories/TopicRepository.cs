@@ -18,10 +18,9 @@ namespace Forum.Repositories
             var topics = from c in categories
                          from t in _context.Topics
                          where c.CategoryID == t.CategoryID && t.IsActive == true && c.IsActive == true
-                         orderby t.TopicAddedDate descending
                          select t;
 
-            return topics.DistinctBy(c=>c.CategoryID);
+            return topics.OrderByDescending(t=>t.TopicAddedDate).DistinctBy(c=>c.CategoryID);
         }
 
         public Dictionary<int,int> TotalNumberOfTopics(IEnumerable<Category> categories)
@@ -41,5 +40,16 @@ namespace Forum.Repositories
 
             return totalTopics;
         }
+
+        public IEnumerable<Topic> TopicBoardLoader(int categoryID)
+        {
+            IEnumerable<Topic> topics = from top in _context.Topics
+                                        where top.CategoryID == categoryID && top.IsActive == true
+                                        select top;
+
+            return topics.OrderByDescending(t => t.TopicAddedDate).Take(5);
+        }
+
+
     }
 }

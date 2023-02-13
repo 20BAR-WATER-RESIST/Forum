@@ -17,22 +17,6 @@ namespace Forum.Repositories
             _context = context;
         }
 
-        private protected IEnumerable<TEntity> allCategories { get; private set; }
-        private protected IEnumerable<TEntity> allTopics { get; private set; }
-        private protected IEnumerable<TEntity> allComments { get; private set; }
-
-        public IEnumerable<TEntity> LoadAllCategories()
-        {
-            return allCategories = _context.Set<TEntity>()
-                 .ToList();
-        }
-
-        public IEnumerable<TEntity> LoadAllTopics()
-        {
-           return allTopics = _context.Set<TEntity>()
-                .ToList();
-        }
-
         public IEnumerable<TEntity> GetAll()
         {
             return _context.Set<TEntity>()

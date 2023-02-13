@@ -9,7 +9,5 @@ namespace Forum.Contracts
         TEntity Find(int id);
         TEntity FindFirstOrDefault(int id);
         IEnumerable<TEntity> FindRange(Expression<Func<TEntity, bool>> expression);
-        IEnumerable<TEntity> LoadAllTopics();
-        IEnumerable<TEntity> LoadAllCategories();
     }
 }
