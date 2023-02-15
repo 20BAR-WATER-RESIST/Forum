@@ -14,7 +14,6 @@ builder.Services.AddDbContext<DefaultDbContext>(options => options.UseSqlite(bui
 builder.Services.AddScoped<ICategoryRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<ITopicRepository<Topic>, TopicRepository>();
 builder.Services.AddScoped<ICommentRepository<Comment>, CommentRepository>();
-builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 
 var app = builder.Build();
 

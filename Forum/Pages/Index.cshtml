@@ -42,7 +42,7 @@
                 </td>
                 <td>
                     @{
-                        var topicCounter = from t in Model.numberOfTopicsInCategory
+                        var topicCounter = from t in Model.numbersOfTopicsInCategory
                                            where t.Key == category.CategoryID
                                            select t.Value;
                         @topicCounter.FirstOrDefault()
@@ -50,7 +50,7 @@
                 </td>
                 <td>
                     @{
-                        var commentCounter = from t in Model.numberOfCommentsInCategory
+                        var commentCounter = from t in Model.numbersOfCommentsInTopics
                                            where t.Key == category.CategoryID
                                            select t.Value;
                         @commentCounter.FirstOrDefault()
@@ -66,13 +66,13 @@
 
                     }
 
-                    @{
-                        var author = from t in Model.EachTopicRowOfCatID
-                                     from usr in Model.newestTopicsAuthors
-                                  where t.CategoryID == category.CategoryID && t.TopicID == usr.Key
-                                  select usr.Value;
-
-                    }
+                    @*                    @{
+                var lastPostAuthorOfCurrentCategory = from usr in Model.Users
+                from top in usr.Topics
+                where top.CategoryID == category.CategoryID
+                orderby top.TopicAddedDate descending
+                select usr.UserName;
+                }*@
 
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
                         @top.FirstOrDefault()
@@ -81,7 +81,7 @@
                     by
 
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
-                        @author.FirstOrDefault()
+                        @* @lastPostAuthorOfCurrentCategory.FirstOrDefault()*@
                     </button>
 
                 </td>

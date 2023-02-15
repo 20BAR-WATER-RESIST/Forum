@@ -1,5 +1,4 @@
 using Forum.Context;
-using Forum.Contracts;
 using Forum.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,22 +8,21 @@ namespace Forum.Pages
 {
     public class BoardModel : PageModel
     {
-        private readonly ITopicRepository<Topic> _topic;
-        private readonly ICommentRepository<Comment> _comment;
+        private readonly DefaultDbContext _forumDbContext;
 
-        public BoardModel(ITopicRepository<Topic> topic, ICommentRepository<Comment> comment)
+        internal List<Topic> Topics = new List<Topic>();
+
+        public BoardModel(DefaultDbContext forumDbContext)
         {
-            _topic = topic;
-            _comment = comment;
+            _forumDbContext= forumDbContext;
         }
-
-        internal IEnumerable<Topic> boardTopics { get; private set; }
-        internal Dictionary<int, int> boardTopicCommentCount { get; private set; }
-
         public async Task OnGet(int id, string title)
         {
-            boardTopics = _topic.TopicBoardLoader(id);
-            boardTopicCommentCount = _comment.BoardTopicCommentCount(boardTopics);
+            Topics = await _forumDbContext.Topics
+                .Where(t=>t.CategoryID == id & t.Categories.CategoryName == title)
+                .Include(t => t.Comments)
+                .ThenInclude(t => t.User)
+                .ToListAsync();
         }
     }
 }
