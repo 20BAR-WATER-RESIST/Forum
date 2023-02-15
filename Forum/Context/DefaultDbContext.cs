@@ -1,17 +1,19 @@
 ﻿using Forum.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
+using System.Data;
 
 namespace Forum.Context
 {
-    public class DefaultDbContext: DbContext
+    public class DefaultDbContext
     {
-        public DefaultDbContext(DbContextOptions<DefaultDbContext> options) : base(options){}
+        private readonly IConfiguration _configuration;
+        private readonly string _connectionString;
 
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Topic> Topics { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<UserType> UserTypes { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DefaultDbContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _connectionString = _configuration.GetConnectionString("ForumConnectionString");
+        }
+
+        public IDbConnection CreateConnection() => new Use
     }
 }
