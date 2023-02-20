@@ -1,4 +1,5 @@
 ﻿using Forum.Models;
+using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace Forum.Context
@@ -14,6 +15,6 @@ namespace Forum.Context
             _connectionString = _configuration.GetConnectionString("ForumConnectionString");
         }
 
-        public IDbConnection CreateConnection() => new Use
+        public IDbConnection CreateConnection() => new MySqlConnection(_connectionString);
     }
 }

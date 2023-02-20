@@ -3,10 +3,7 @@ using System.Linq.Expressions;
 
 namespace Forum.Contracts
 {
-    public interface ITopicRepository<Topic> : IDatabaseMainAccess<Topic> where Topic : class
+    public interface ITopicRepository
     {
-        //    IEnumerable<Topic> EachTopicRowOfCategoryID(IEnumerable<Category> categories);
-        //    IEnumerable<Models.Topic> TopicBoardLoader(int categoryID);
-        //    Dictionary<int, int> TotalNumberOfTopics(IEnumerable<Category> categories);
     }
 }

@@ -22,8 +22,6 @@
         </tr>
     </thead>
 
-    @foreach (var topics in Model.boardTopics)
-    {
         <tbody>
             <tr>
                 <td>
@@ -39,41 +37,20 @@
                     </div>
                 </td>
                 <td>
-                    <p>@topics.TopicName</p>
-                    <p class="text-muted mb-0">@topics.TopicDescription</p>
+                    <p>TopicNAme</p>
+                    <p class="text-muted mb-0">TopicDescription</p>
                 </td>
                 <td>
 
                 </td>
                 <td>
-                    @{
-                        var topicAmmount = from t in Model.boardTopicCommentCount
-                                           where t.Key == topics.TopicID
-                                           select t.Value;
-
-
-                        @topicAmmount.FirstOrDefault();
-                     }
+                    TOpicAmmount
                 </td>
                 <td>
                     
                 </td>
                 <td>
-@*                    @{
-                        var boardLastComm = from t in Model.Topics
-                                            from c in t.Comments
-                                            where topics.TopicID == c.TopicID
-                                            orderby c.CommentAddedTime descending
-                                            select c.User.UserName;
 
-                        var boardLastCommDate = from t in Model.Topics
-                                            from c in t.Comments
-                                            where topics.TopicID == c.TopicID
-                                            orderby c.CommentAddedTime descending
-                                            select c.CommentAddedTime;
-                    }
-                    <p>@boardLastComm.FirstOrDefault()</p>
-                    <p>@boardLastCommDate.FirstOrDefault()</p>*@
                 </td>
             </tr>
         </tbody>

@@ -2,8 +2,7 @@
 
 namespace Forum.Contracts
 {
-    public interface IUserRepository<User> : IDatabaseMainAccess<User> where User : class
+    public interface IUserRepository
     {
-        Dictionary<int, string> NewestTopicsAuthors(IEnumerable<Topic> lastTopics);
     }
 }

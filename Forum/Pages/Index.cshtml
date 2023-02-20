@@ -20,8 +20,7 @@
         </tr>
     </thead>
 
-    @foreach (var category in Model.justCategories)
-    {
+@foreach(var topics in Model.indexcategories){
         <tbody>
             <tr>
                 <td>
@@ -37,55 +36,31 @@
                     </div>
                 </td>
                 <td>
-                    <a class="nav-link text-dark" asp-page="/Board" asp-route-id="@category.CategoryID" asp-route-title="@category.CategoryName">@category.CategoryName</a>
-                    <p class="text-muted mb-0">@category.CategoryDescription</p>
+                    <a class="nav-link text-dark" asp-page="/Board" asp-route-id="" asp-route-title="">@topics.CategoryName</a>
+                    <p class="text-muted mb-0">@topics.CategoryDescription</p>
                 </td>
                 <td>
-                    @{
-                        var topicCounter = from t in Model.numberOfTopicsInCategory
-                                           where t.Key == category.CategoryID
-                                           select t.Value;
-                        @topicCounter.FirstOrDefault()
-                    }
+                    @topics.TotalTopicCount
                 </td>
                 <td>
-                    @{
-                        var commentCounter = from t in Model.numberOfCommentsInCategory
-                                           where t.Key == category.CategoryID
-                                           select t.Value;
-                        @commentCounter.FirstOrDefault()
-                    }
+                    @topics.TotalCommentCount
 
                 </td>
                 <td>
-
-                    @{
-                        var top = from t in Model.EachTopicRowOfCatID
-                                  where t.CategoryID == category.CategoryID
-                                  select t.TopicName;
-
-                    }
-
-                    @{
-                        var author = from t in Model.EachTopicRowOfCatID
-                                     from usr in Model.newestTopicsAuthors
-                                  where t.CategoryID == category.CategoryID && t.TopicID == usr.Key
-                                  select usr.Value;
-
-                    }
 
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
-                        @top.FirstOrDefault()
+                        @topics.TopicName
                     </button>
 
                     by
 
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
-                        @author.FirstOrDefault()
+                        @topics.UserName
                     </button>
 
                 </td>
             </tr>
         </tbody>
-    }
+}
 </table>
+

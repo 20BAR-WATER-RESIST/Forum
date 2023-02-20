@@ -4,9 +4,9 @@ using Forum.Models;
 
 namespace Forum.Repositories
 {
-    public class CommentRepository : DatabaseMainAccess<Comment>, ICommentRepository<Comment>
+    public class CommentRepository : ICommentRepository
     {
-        public CommentRepository(DefaultDbContext context) : base(context)
+        public CommentRepository(DefaultDbContext context)
         {
         }
 

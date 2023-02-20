@@ -8,6 +8,8 @@ namespace Forum.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
+        public DateTime UserRegisteredDate { get; set; }    
+        public DateTime? UserBannedTime { get; set; }
         public bool IsActive { get; set; }
 
         public int UserTypeID { get; set; }

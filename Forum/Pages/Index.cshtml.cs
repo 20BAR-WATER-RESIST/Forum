@@ -4,39 +4,25 @@ using Forum.Models;
 using Forum.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using System.Security.AccessControl;
 
 namespace Forum.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ICategoryRepository<Category> _category;
-        private readonly ITopicRepository<Topic> _topic;
-        private readonly ICommentRepository<Comment> _comment;
-        private readonly IUserRepository<User> _user;
+        private readonly Contracts.ICategoryRepository _categories;
 
-        public IndexModel(ICategoryRepository<Category> category, ITopicRepository<Topic> topic, ICommentRepository<Comment> comment, IUserRepository<User> user)
+       public IndexModel(ICategoryRepository categories)
         {
-            _category = category;
-            _topic = topic;
-            _comment = comment;
-            _user = user;
+            _categories = categories;
         }
 
-        public IEnumerable<Category> justCategories { get; private set; }
-        public IEnumerable<Topic> EachTopicRowOfCatID { get; private set; }
-        public Dictionary<int, string> newestTopicsAuthors { get; private set; }
-        public Dictionary<int, int> numberOfTopicsInCategory { get; private set; }
-        public Dictionary<int, int> numberOfCommentsInCategory { get; private set; }
+        public List<(int CategoryID, string CategoryName, string CategoryDescription, string TopicName, string UserName, DateTime TopicAddedDate, int TotalTopicCount, int TotalCommentCount)> indexcategories { get; set; }
+
 
         public async Task OnGet()
         {
-            justCategories = _category.GetAll();
-            EachTopicRowOfCatID = _topic.EachTopicRowOfCategoryID(justCategories);
-            newestTopicsAuthors = _user.NewestTopicsAuthors(EachTopicRowOfCatID);
-            numberOfTopicsInCategory = _topic.TotalNumberOfTopics(justCategories);
-            numberOfCommentsInCategory = _comment.CategoryCommentCounter(_topic.GetAll());
+            indexcategories = await _categories.GetCategories();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Forum.Contracts
 {
-    public interface ICommentRepository<Comment> : IDatabaseMainAccess<Comment> where Comment : class
+    public interface ICommentRepository
     {
     }
 }
