@@ -11,6 +11,8 @@ namespace Forum.Models
         public DateTime CommentAddedTime { get; set; }
         public DateTime? CommentUpdatedTime { get; set; }
         public DateTime? CommentDeletedTime { get; set; }
+        public DateTime? CommentBannedTime { get; set; }
+        public int? TotalCommentCount { get; set; }
         public bool IsActive { get; set; }
 
         public int UserID { get; set; }

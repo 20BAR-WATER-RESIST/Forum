@@ -2,7 +2,7 @@
 
 namespace Forum.Contracts
 {
-    public interface ICommentRepository
+    public interface IUserRepository
     {
     }
 }

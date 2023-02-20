@@ -12,10 +12,12 @@ namespace Forum.Models
         public string TopicName { get; set; }
         public string TopicDescription { get; set; }
         public string? TopicTags { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d/M/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{YYYY-MM-DD HH:MI:SS}")]
         public DateTime TopicAddedDate { get; set; }
         public DateTime? TopicUpdatedDate { get; set; }
         public DateTime? TopicDeletedDate { get; set; }
+        public DateTime? TopicBannedDate { get; set; }
+        public int? TotalTopicCount { get; set; }
         public bool IsActive { get; set; }
 
         public int UserID { get; set; }
