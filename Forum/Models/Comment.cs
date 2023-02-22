@@ -14,7 +14,9 @@ namespace Forum.Models
         public DateTime? CommentBannedTime { get; set; }
         public int? TotalCommentCount { get; set; }
         public bool IsActive { get; set; }
+        public int? CommentCount { get; set; }
 
+        public string? CoommentAuthor { get; set; }
         public int UserID { get; set; }
         public User User { get; set; }
         public int TopicID { get; set; }
