@@ -17,12 +17,12 @@ namespace Forum.Pages
             _categories = categories;
         }
 
-        public List<(int CategoryID, string CategoryName, string CategoryDescription, string TopicName, string UserName, DateTime TopicAddedDate, int TotalTopicCount, int TotalCommentCount)> indexcategories { get; set; }
+        public List<(int CategoryID, string CategoryName, string CategoryDescription, string TopicName, string UserName, DateTime TopicAddedDate, int TotalTopicCount, int TotalCommentCount)> indexPageData { get; set; }
 
 
         public async Task OnGet()
         {
-            indexcategories = await _categories.GetCategories();
+            indexPageData = await _categories.LoadEntireIndexPageData();
         }
     }
 }

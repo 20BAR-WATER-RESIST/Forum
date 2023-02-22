@@ -20,6 +20,7 @@ namespace Forum.Models
         public int? TotalTopicCount { get; set; }
         public bool IsActive { get; set; }
 
+        public string? TopicAuthor { get; set; }
         public int UserID { get; set; }
         public User Users { get; set; }
         public int CategoryID { get; set; }

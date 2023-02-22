@@ -14,7 +14,7 @@ namespace Forum.Repositories
             _context = context;
         }
 
-        public async Task<List<(int CategoryID, string CategoryName, string CategoryDescription, string TopicName, string UserName, DateTime TopicAddedDate, int TotalTopicCount, int TotalCommentCount)>> GetCategories()
+        public async Task<List<(int CategoryID, string CategoryName, string CategoryDescription, string TopicName, string UserName, DateTime TopicAddedDate, int TotalTopicCount, int TotalCommentCount)>> LoadEntireIndexPageData()
         {
             using (var connection = _context.CreateConnection())
             {

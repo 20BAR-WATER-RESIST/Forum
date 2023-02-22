@@ -1,4 +1,19 @@
-﻿@page
+﻿@page "{id:int}"
 @model Forum.Pages.PlotsModel
 @{
+
+    <table>
+    
+        <tbody>
+               @foreach(var topic in Model.plotsTopicData)
+                {
+                    <td>@topic.TopicName.ToString()</td>
+                    <td>@topic.TopicDescription</td>
+                    <td>@topic.TopicAuthor</td>
+                    <td>@topic.TopicAddedDate</td>
+                }
+        </tbody>
+
+
+    </table>
 }

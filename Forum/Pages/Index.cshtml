@@ -20,7 +20,7 @@
         </tr>
     </thead>
 
-@foreach(var topics in Model.indexcategories){
+@foreach(var topics in Model.indexPageData){
         <tbody>
             <tr>
                 <td>
@@ -36,7 +36,7 @@
                     </div>
                 </td>
                 <td>
-                    <a class="nav-link text-dark" asp-page="/Board" asp-route-id="" asp-route-title="">@topics.CategoryName</a>
+                    <a class="nav-link text-dark" asp-page="/Board" asp-route-id="@topics.CategoryID" asp-route-title="@topics.CategoryName">@topics.CategoryName</a>
                     <p class="text-muted mb-0">@topics.CategoryDescription</p>
                 </td>
                 <td>

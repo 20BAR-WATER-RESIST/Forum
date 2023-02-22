@@ -17,11 +17,11 @@
             <th>Dodane przez</th>
             <th>Odpowiedzi</th>
             <th>Wyświetlenia</th>
-            <th>Ostatni post</th>
+            <th>Ostatnia odpowiedź</th>
 
         </tr>
     </thead>
-
+@foreach(var topics in Model.boardData){
         <tbody>
             <tr>
                 <td>
@@ -37,20 +37,21 @@
                     </div>
                 </td>
                 <td>
-                    <p>TopicNAme</p>
+                    <a class="nav-link text-dark" asp-page="/Plots" asp-route-id="@topics.TopicID"><p>@topics.TopicName</p></a>
                     <p class="text-muted mb-0">TopicDescription</p>
                 </td>
                 <td>
-
+                    @topics.TopicAuthor
                 </td>
                 <td>
-                    TOpicAmmount
+                    @topics.CommentCount
                 </td>
                 <td>
                     
                 </td>
                 <td>
-
+                    przez @topics.CommentAuthor <br />
+                    @topics.CommentAddedTime.ToLocalTime()
                 </td>
             </tr>
         </tbody>
