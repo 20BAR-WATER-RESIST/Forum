@@ -2,18 +2,37 @@
 @model Forum.Pages.PlotsModel
 @{
 
-    <table>
-    
-        <tbody>
-               @foreach(var topic in Model.plotsTopicData)
+<table>
+    <tbody>
+            @foreach(var topic in Model.plotsTopicData)
                 {
-                    <td>@topic.TopicName.ToString()</td>
-                    <td>@topic.TopicDescription</td>
                     <td>@topic.TopicAuthor</td>
+                    <td>@topic.TopicName</td>
+                    <td>@topic.TopicDescription</td>
                     <td>@topic.TopicAddedDate</td>
-                }
-        </tbody>
 
+        }
+    </tbody>
+</table>
 
-    </table>
+@await Html.PartialAsync("_PagginationPartial", Model)
+
+<table>
+
+    <tbody>
+
+            @foreach(var comments in Model.plotsCommentData)
+            {
+                <tr>
+                    <td>@comments.UserName</td>
+                    <td>@comments.CommentText</td>
+                    <td>@comments.CommentAddedTime</td>
+                </tr>
+            }
+
+    </tbody>
+
+</table>
+
 }
+

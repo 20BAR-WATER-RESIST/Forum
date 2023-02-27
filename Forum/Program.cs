@@ -1,10 +1,7 @@
 
 using Forum.Context;
 using Forum.Contracts;
-using Forum.Models;
 using Forum.Repositories;
-using Microsoft.Extensions.Options;
-using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.Configure<RequestLocalizationOptions>(options => { options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("pl-PL"); });
 builder.Services.AddSingleton<DefaultDbContext>();
+builder.Services.AddScoped<IBaseMethodsRepository, BaseMethodsRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
