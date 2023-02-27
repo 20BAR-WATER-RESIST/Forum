@@ -16,10 +16,29 @@ namespace Forum.Repositories
             _context = context;
         }
 
-        public async Task<List<(int CategoryID,int TopicID,string TopicName,string TopicAuthor, DateTime TopicAddedDate, int CommentCount,string CommentAuthor,DateTime CommentAddedTime)>> LoadBoard(int id)
+        public async Task<int> GetTopicAmmountPerCategory(int id)
         {
             using(var connection = _context.CreateConnection())
             {
+                var querry = @"select count(TopicID) from topics t
+                               where t.CategoryID = @CategoryID AND t.IsActive = true;";
+
+                var results = await connection.QueryFirstOrDefaultAsync<int>(querry, new {CategoryID = id});
+                return results;
+            }
+        }
+
+        public async Task<List<(int CategoryID,int TopicID,string TopicName,string TopicAuthor, DateTime TopicAddedDate, int CommentCount,string CommentAuthor,DateTime CommentAddedTime)>> LoadBoard(int id, int currentPage)
+        {
+            using(var connection = _context.CreateConnection())
+            {
+                int pageCalc;
+                if(currentPage <= 1)
+                {
+                    pageCalc = 0;
+                }
+                else { pageCalc = (currentPage-1) * 10; }
+
                 var querry = @"select CategoryID, TopicID, TopicName, TopicAuthor, TopicAddedDate, CommentCount AS TotalCommentCount, LastCommentAuthor AS CommentAuthor, CommentAddedTime from 
                                 (
 	                                select t.CategoryID, t.TopicID, t.TopicName, t.TopicAddedDate, com.CommentAddedTime,
@@ -34,14 +53,14 @@ namespace Forum.Repositories
                                   order by t.TopicAddedDate DESC
                                 ) as temp
                                 where rownumb = 1
-                                limit 10 offset 0;";
+                                limit 10 offset @PageNumber;";
 
-            var results = (await connection.QueryAsync<(int,int,string,string,DateTime,int,string,DateTime)>(querry, new {SiteID = id})).ToList();
+            var results = (await connection.QueryAsync<(int,int,string,string,DateTime,int,string,DateTime)>(querry, new {SiteID = id, PageNumber = pageCalc })).ToList();
             return results;
             }
         }
 
-        public async Task<List<(int TopicID, string TopicName, string TopicDescription, DateTime TopicAddedDate, string TopicAuthor)>> LoadPlotTopic(int id)
+        public async Task<List<(string TopicName, string TopicDescription, DateTime TopicAddedDate, string TopicAuthor)>> LoadPlotTopic(int id)
         {
             using(var connection = _context.CreateConnection())
             {
@@ -50,7 +69,7 @@ namespace Forum.Repositories
                             from topics t
                             where t.TopicID = @PlotID;";
 
-                var result = (await connection.QueryAsync<(int,string,string,DateTime,string)>(querry, new {PlotID = id })).ToList();
+                var result = (await connection.QueryAsync<(string,string,DateTime,string)>(querry, new {PlotID = id })).ToList();
                 return result;
             }
         }
