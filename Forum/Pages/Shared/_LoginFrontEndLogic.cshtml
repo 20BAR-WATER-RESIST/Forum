@@ -1,0 +1,10 @@
+﻿@if(User.Identity.IsAuthenticated){
+    <form method="post" class="form-inline" asp-page="/Account/Logout">
+        Witaj @User.Identity.Name
+        <input type="submit" class="m-lg-2 btn btn-link" value="Logout" />
+    </form>
+} else {
+    <form method="post" class="form-inline" asp-page="/Account/Login">
+        <input type="submit" class="m-lg-2 btn btn-link" value="Login" />
+    </form>
+}

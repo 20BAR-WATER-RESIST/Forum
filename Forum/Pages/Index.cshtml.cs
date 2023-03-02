@@ -1,20 +1,18 @@
-﻿using Forum.Context;
-using Forum.Contracts;
-using Forum.Models;
-using Forum.Repositories;
+﻿using Forum.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Security.AccessControl;
 
 namespace Forum.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly Contracts.ICategoryRepository _categories;
+        private readonly IViewComponentHelper viewComponentHelper;
 
-       public IndexModel(ICategoryRepository categories)
+        public IndexModel(ICategoryRepository categories, IViewComponentHelper viewComponentHelper)
         {
             _categories = categories;
+            this.viewComponentHelper = viewComponentHelper;
         }
 
         public List<(int CategoryID, string CategoryName, string CategoryDescription, string TopicName, string UserName, DateTime TopicAddedDate, int TotalTopicCount, int TotalCommentCount)> indexPageData { get; set; }

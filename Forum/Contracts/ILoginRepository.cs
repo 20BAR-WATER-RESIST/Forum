@@ -5,7 +5,7 @@ namespace Forum.Contracts
 {
     public interface ILoginRepository
     {
-        Task<User> GetUserEmail(EmailAddressAttribute email);
-        Task<User> GetUserPassword(EmailAddressAttribute email, string password);
+        Task<(string UserEmail, string UserName, string UserTypeName)> GetUserAccData(string email, string password);
+        Task<bool> GetVerification(string email, string password);
     }
 }
