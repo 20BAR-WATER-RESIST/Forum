@@ -2,6 +2,7 @@ using Forum.Context;
 using Forum.Contracts;
 using Forum.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Org.BouncyCastle.Pkix;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=>
 {
     options.Cookie.Name = "YourCookieNameHere";

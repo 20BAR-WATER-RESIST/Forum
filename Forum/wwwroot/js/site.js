@@ -3,6 +3,3 @@
 
 // Write your JavaScript code.
 
-function ShowLoginPage() {
-    document.getElementById("loginForm").style.display = "";
-}
