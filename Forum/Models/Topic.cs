@@ -17,7 +17,9 @@ namespace Forum.Models
         public DateTime? TopicUpdatedDate { get; set; }
         public DateTime? TopicDeletedDate { get; set; }
         public DateTime? TopicBannedDate { get; set; }
+        public TimeSpan TimeDiff { get; set; }
         public int? TotalTopicCount { get; set; }
+        public int? ViewCount { get; set; }
         public bool IsActive { get; set; }
 
         public string? TopicAuthor { get; set; }
