@@ -1,38 +1,102 @@
 ﻿@page "{id:int}"
 @model Forum.Pages.PlotsModel
 @{
-
-<table>
-    <tbody>
-            @foreach(var topic in Model.plotsTopicData)
-                {
-                    <td>@topic.TopicAuthor</td>
-                    <td>@topic.TopicName</td>
-                    <td>@topic.TopicDescription</td>
-                    <td>@topic.TopicAddedDate</td>
-
-        }
-    </tbody>
-</table>
+    Layout = "_Layout-Plots";
+}
 
 @await Html.PartialAsync("_PagginationPartial", Model)
 
-<table>
+<div class="col-12 gy-0 m-0 p-0" style="background-color: none;">
+    <div class="row gy-3 gx-0 justify-content-center d-flex flex-column commentery-flex-centering">
+        @foreach(var topics in Model.dapperTest){
+            <div class="col-12 post-col" style="background-color: #F2F2F2">
+                <div class="post m-0 p-0 g-0 d-inline-flex shadow-sm">
+                    <div class="info-area">
+                        <div class="user-info d-flex flex-column flex-centering">
+                            <span>@topics.Users.UserName</span>
+                            <img src="~/img/user-profile.png" />
+                            <span>Account Type</span>
+                            <span>User Topic Ammounts</span>
+                            <span>User Comment Ammount</span>
+                            <span>Report User</span>
+                            <span>Approve User</span>
+                        </div>
+                        <div class="topic-info d-flex flex-column p-4">
+                            <span class="plots-topic-title d-inline-flex justify-content-between commentery-flex-centering">
+                                <span>@topics.TopicName</span>
+                            </span>
+                            <hr>
+                            <span class="plots-topic-describe">@topics.TopicDescription</span>
+                        </div>
+                    </div>
+                    <div class="icons-area d-flex flex-column flex-centering justify-content-between p-3">
+                        <span>
+                            <span>@topics.VotePlus</span>
+                            <img src="~/img/plus.png" />
+                            <span>@topics.VoteMinus</span>
+                            <img src="~/img/minus-button.png" />
+                        </span>
+                        <span>
+                            <img src="~/img/exclamation-mark.png" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-6">
+                <form method="post" asp-page-handler="AddComment" class="d-flex flex-column">
+                    <textarea class="plot-comment-textarea form-control shadow-none mb-1" maxlength="2000" rows="3" asp-for="CommentFormData.CommentText"></textarea>
+                    <input type="submit" class="btn btn-primary btn-rounded" value="Comment">
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="col-6">
+                <div class="alert alert-primary text-center" role="alert">
+                    Adding comments for <a asp-page="/Account/Login" class="alert-link">logged in</a> only.
+                </div>
+            </div>
+        }
 
-    <tbody>
-
-            @foreach(var comments in Model.plotsCommentData)
-            {
-                <tr>
-                    <td>@comments.UserName</td>
-                    <td>@comments.CommentText</td>
-                    <td>@comments.CommentAddedTime</td>
-                </tr>
-            }
-
-    </tbody>
-
-</table>
-
-}
-
+        @foreach(var comments in Model.dapperComments){
+        <div class="col-12 post-col" style="background-color: #F2F2F2">
+            <div class="post m-0 p-0 g-0 d-inline-flex shadow-sm">
+                <div class="info-area">
+                    <div class="user-info d-flex flex-column flex-centering">
+                        <span>@comments.User.UserName</span>
+                        <img src="~/img/user-profile.png" />
+                        <span>Account Type</span>
+                        <span>User Topic Ammounts</span>
+                        <span>User Comment Ammount</span>
+                        <span>Report User</span>
+                        <span>Approve User</span>
+                    </div>
+                    <div class="topic-info d-flex flex-column p-4">
+                        <span class="comment-topic-title d-inline-flex justify-content-between commentery-flex-centering">
+                            <span>@comments.CommentAddedTime</span>
+                            <a href="#" class="btn btn-sm btn-success align-self-center" role="button" data-bs-toggle="button">Reply</a>
+                        </span>
+                        <hr>
+                        <span class="plots-topic-describe">@comments.CommentText</span>
+                    </div>
+                </div>
+                <div class="icons-area d-flex flex-column flex-centering justify-content-between p-3">
+                    <span>
+                        <span>@comments.VotePlus</span>
+                        <img src="~/img/plus.png" />
+                        <span>@comments.VoteMinus</span>
+                        <img src="~/img/minus-button.png" />
+                    </span>
+                    <span>
+                        <img src="~/img/exclamation-mark.png" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

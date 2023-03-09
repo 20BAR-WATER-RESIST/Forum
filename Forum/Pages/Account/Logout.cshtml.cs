@@ -6,14 +6,21 @@ namespace Forum.Pages.Account
 {
     public class LogoutModel : PageModel
     {
-        public async Task<IActionResult> OnPostAsync()
+
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             return RedirectToPage("/Index");
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnPostAsync()
         {
+            return await Logout();
+        }
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            return await Logout();
         }
     }
 }

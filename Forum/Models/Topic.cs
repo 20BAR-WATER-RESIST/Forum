@@ -20,9 +20,10 @@ namespace Forum.Models
         public TimeSpan TimeDiff { get; set; }
         public int? TotalTopicCount { get; set; }
         public int? ViewCount { get; set; }
+        public int? VotePlus { get; set; }
+        public int? VoteMinus { get; set; }
         public bool IsActive { get; set; }
 
-        public string? TopicAuthor { get; set; }
         public int UserID { get; set; }
         public User Users { get; set; }
         public int CategoryID { get; set; }

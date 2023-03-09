@@ -1,0 +1,67 @@
+.post-col{
+    height: 300px;
+    border: solid 1px rgba(0, 0, 0, 0.053);
+}
+
+.info-area{
+    width: 95%;
+}
+
+.icons-area{
+    width: 5%;
+    height: 100%;
+    font-weight: bold;
+}
+
+.icons-area img{
+    width: 25px;
+    height: 25px;
+    opacity: 0.9;
+}
+
+.user-info img{
+    max-width: none;
+    width: 80px;
+    height: 80px;
+    opacity: 0.6;
+}
+
+.flex-centering{
+    align-self: center;
+}
+
+.commentery-flex-centering{
+    align-items: center;
+}
+
+.plots-topic-title{
+    height: 20%;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.plots-topic-describe{
+    height: 80%;
+}
+
+.comment-topic-title{
+    height: 5%;
+    font-size: 12px;
+}
+
+.comment-topic-describe{
+    height: 95%;
+}
+
+.btn-primary{
+    background-color: #115959;
+    border: none;
+}
+
+.btn-primary:hover{
+    background-color: #146565;
+}
+
+.plot-comment-textarea{
+    background-color: rgb(243, 242, 242);
+}

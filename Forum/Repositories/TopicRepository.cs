@@ -60,16 +60,18 @@ namespace Forum.Repositories
             }
         }
 
-        public async Task<List<(string TopicName, string TopicDescription, DateTime TopicAddedDate, string TopicAuthor)>> LoadPlotTopic(int id)
+        public async Task<List<(int TopicID, string TopicName, string TopicDescription, DateTime TopicAddedDate, int UserID, string UserName, int UserTypeID, string UserTypeName, int VotePlus, int VoteMinus)>> LoadPlotTopic(int id)
         {
-            using(var connection = _context.CreateConnection())
+            using (var connection = _context.CreateConnection())
             {
-                var querry = @"select TopicName, TopicDescription, TopicAddedDate, 
-                            (select u.UserName from users u where u.UserID = t.UserID) AS TopicAuthor
-                            from topics t
-                            where t.TopicID = @PlotID;";
+                var querry = @"select TopicID, TopicName, TopicDescription, TopicAddedDate, u.UserID, u.UserName, 
+                               ut.UserTypeID, ut.UserTypeName, VotePlus, VoteMinus
+                               from topics t
+                               left join users u on u.UserID = t.UserID
+                               left join userstypes ut on u.UserTypeID = ut.UserTypeID
+                               where t.TopicID = @PlotID;";
 
-                var result = (await connection.QueryAsync<(string,string,DateTime,string)>(querry, new {PlotID = id })).ToList();
+                var result = (await connection.QueryAsync<(int, string, string, DateTime, int, string, int, string, int, int)>(querry, new { PlotID = id })).ToList();
                 return result;
             }
         }
@@ -123,6 +125,36 @@ namespace Forum.Repositories
                                limit 10;";
                 var results = (await connection.QueryAsync<(int, string, DateTime, int)>(querry)).ToList();
                 return results;
+            }
+        }
+
+        /* Dapper map test */
+
+        public async Task<List<Topic>> DapperTest(int id)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                string query = @"select TopicID, TopicName, TopicDescription, TopicAddedDate, VotePlus, VoteMinus, u.UserID, u.UserName, 
+                                 ut.UserTypeID, ut.UserTypeName
+                                 from topics t
+                                 left join users u on u.UserID = t.UserID
+                                 left join userstypes ut on u.UserTypeID = ut.UserTypeID
+                                 where t.TopicID = @ID;";
+
+                var result = await connection.QueryAsync<Topic, User, UserType, Topic>(
+                    sql: query,
+                    map: (topic, user, userType) =>
+                    {
+                        topic.Users = user;
+                        user.UserTypes = userType;
+                        return topic;
+                    },
+                    param: new { ID = id },
+                    splitOn: "UserID,UserTypeID"
+                );
+
+                return result.ToList();
+
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿@page "{id:int}/{title}"
 @model Forum.Pages.BoardModel
 @{
+    Layout = "_Layout";
 }
 
 @await Html.PartialAsync("_PagginationPartial", Model)

@@ -6,6 +6,10 @@ body {
     color: black;
 }
 
+.btn-success {
+    background-color: #1d9d6e;
+}
+
 .pull-left {
     float: left;
 }

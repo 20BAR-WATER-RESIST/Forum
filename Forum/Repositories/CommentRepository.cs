@@ -2,6 +2,7 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Models;
+using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace Forum.Repositories
@@ -48,6 +49,45 @@ namespace Forum.Repositories
                 return results;
             }
         }
-        
+
+        /* new Layout */
+
+        public async Task<List<Comment>> DapperCommentsTest(int topicId, int currentPage)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+
+                int pageCalc;
+                if (currentPage <= 1)
+                {
+                    pageCalc = 0;
+                }
+                else { pageCalc = (currentPage - 1) * 10; }
+
+                var query = @"SELECT c.CommentID, c.CommentText, c.CommentAddedTime, c.UserID, c.VotePlus, c.VoteMinus, u.UserName, u.UserTypeID,
+                ut.UserTypeName
+            FROM comments c
+            INNER JOIN users u ON c.UserID = u.UserID
+            INNER JOIN UsersTypes ut ON u.UserTypeID = ut.UserTypeID
+            WHERE c.TopicID = @TopicId
+            order by c.CommentAddedTime asc
+            limit 10 offset @PageNumber;";
+
+
+                var result = await connection.QueryAsync<Comment, User, UserType, Comment>(
+                    query,
+                    map: (comment, user, userType) =>
+                    {
+                         comment.User = user;
+                         comment.User.UserTypes = userType;
+                         return comment;
+                    },
+                    param: new { TopicId = topicId, PageNumber = currentPage },
+                    splitOn: "UserName,UserTypeName");
+
+                return result.ToList();
+            }
+        }
+
     }
 }

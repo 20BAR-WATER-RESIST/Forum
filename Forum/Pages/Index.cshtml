@@ -6,19 +6,19 @@
 }
 
 <div class="col-12 col-lg-6 order-2 order-lg-1 gy-0 m-0 p-0" style="background-color: none;">
-    <div class="row gy-3 gx-0">
+    <div class="row gx-0 gap-2">
 
         @foreach(var data in Model.indexData)
         {
 
-            <div class="col-12 post-col" style="background-color: #F2F2F2">
+            <div class="col-12 post-col shadow-sm mt-2 mt-lg-0" style="background-color: #F2F2F2">
                 <div class="post m-0 p-0 g-0">
                     <div class="info-area pull-left">
                         <div class="user-info pull-left">
-                            <img src="img/user.png" />
+                            <img src="img/user-profile.png" />
                         </div>
                         <div class="topic-info pull-left">
-                            <a href="*" class="topic-title">
+                            <a class="topic-title" asp-page="/Plots" asp-route-id="@data.TopicID" asp-rout-title="@data.TopicName">
                                 @{var mt = await Model.TrimString(data.TopicName);}
                                 @mt
                             </a><br />
@@ -52,37 +52,36 @@
 
 <div class="col-12 col-lg-3 order-1 order-lg-2 gy-0 m-0 p-0" style="background-color: none;">
     <div class="row gy-2 gx-0">
-       
-        <div class="col-12 right-nav-col d-flex flex-column p-3" style="background-color:#F2F2F2">
+        <div class="col-12 right-nav-col d-flex flex-column p-3 shadow-sm" style="background-color:#F2F2F2">
             <span class="sidebar-title nav-item ps-3">Categories</span>
             <hr>
             <ul class="nav flex-column">
 
         @foreach (var data in Model.indexCatData)
         {
-                <li class="nav-item d-flex justify-content-between flex-centering">
-                    <a class="nav-link sidebar-link" href="#">@data.CategoryName</a>
+                    <li class="nav-item d-flex justify-content-between flex-centering">
+                        <a class="nav-link sidebar-link" asp-page="/Board" asp-route-id="@data.CategoryID" asp-route-title="@data.CategoryName">@data.CategoryName</a>
                     <span>@data.TotalTopicCount</span>
                 </li>
         }
 
             </ul>
         </div>
-        <div class="col-12 right-nav-col d-flex flex-column p-3 d-none d-lg-block" style="background-color:#F2F2F2">
+        <div class="col-12 right-nav-col d-flex flex-column p-3 d-none d-lg-block shadow-sm" style="background-color:#F2F2F2">
             <span class="sidebar-title nav-item ps-3">Latest Hot Topics</span>
             <hr>
             <ul class="nav flex-column">
                 @foreach (var data in Model.indexHotTopicsData)
                 {
                     <li class="nav-item d-flex justify-content-between flex-centering">
-                        <a class="nav-link sidebar-link" href="#">@{var topicTitle = await Model.TrimString(data.TopicName);}@topicTitle</a>
+                        <a class="nav-link sidebar-link" asp-page="/Plots" asp-route-id="@data.TopicID" asp-route-title="@data.TopicName">@{var topicTitle = await Model.TrimString(data.TopicName);}@topicTitle</a>
                         <span><img src="img/speech-bubble.png" width='10' height='10' />@data.CommentCount</span>
                     </li>
                 }
             </ul>
         </div>
 
-        <div class="col-12 right-nav-col d-flex flex-column p-3 d-none d-lg-block" style="background-color:#F2F2F2">
+        <div class="col-12 right-nav-col d-flex flex-column p-3 d-none d-lg-block shadow-sm" style="background-color:#F2F2F2">
             <span class="sidebar-title nav-item ps-3">Active Users</span>
             <hr>
             <ul class="nav flex-fill">
