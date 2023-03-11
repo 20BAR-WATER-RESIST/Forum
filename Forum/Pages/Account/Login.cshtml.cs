@@ -13,10 +13,12 @@ namespace Forum.Pages.Account
     {
 
         private readonly ILoginRepository _loginRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginModel(ILoginRepository loginRepository)
+        public LoginModel(ILoginRepository loginRepository,IHttpContextAccessor httpContextAccessor)
         {
             _loginRepository = loginRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [BindProperty]
@@ -24,6 +26,9 @@ namespace Forum.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var previousUrl = HttpContext.Session.GetString("PreviousUrl");
+            HttpContext.Session.Remove("PreviousUrl");
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -44,9 +49,19 @@ namespace Forum.Pages.Account
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = UserFormData.RememberMe
+                };
 
-                return RedirectToPage("/Index");
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+
+                if (!string.IsNullOrEmpty(previousUrl) && Uri.IsWellFormedUriString(previousUrl, UriKind.Relative) 
+                    && previousUrl.StartsWith("/") && !previousUrl.StartsWith("//") && !previousUrl.StartsWith("/\\"))
+                {
+                    return LocalRedirect(previousUrl);
+                }
+                else { return RedirectToPage("/Index"); }
 
             }
             else { return Page(); }

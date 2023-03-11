@@ -60,21 +60,21 @@ namespace Forum.Repositories
             }
         }
 
-        public async Task<List<(int TopicID, string TopicName, string TopicDescription, DateTime TopicAddedDate, int UserID, string UserName, int UserTypeID, string UserTypeName, int VotePlus, int VoteMinus)>> LoadPlotTopic(int id)
-        {
-            using (var connection = _context.CreateConnection())
-            {
-                var querry = @"select TopicID, TopicName, TopicDescription, TopicAddedDate, u.UserID, u.UserName, 
-                               ut.UserTypeID, ut.UserTypeName, VotePlus, VoteMinus
-                               from topics t
-                               left join users u on u.UserID = t.UserID
-                               left join userstypes ut on u.UserTypeID = ut.UserTypeID
-                               where t.TopicID = @PlotID;";
+        //public async Task<List<(int TopicID, string TopicName, string TopicDescription, DateTime TopicAddedDate, int UserID, string UserName, int UserTypeID, string UserTypeName, int VotePlus, int VoteMinus)>> LoadPlotTopic(int id)
+        //{
+        //    using (var connection = _context.CreateConnection())
+        //    {
+        //        var querry = @"select TopicID, TopicName, TopicDescription, TopicAddedDate, u.UserID, u.UserName, 
+        //                       ut.UserTypeID, ut.UserTypeName, VotePlus, VoteMinus
+        //                       from topics t
+        //                       left join users u on u.UserID = t.UserID
+        //                       left join userstypes ut on u.UserTypeID = ut.UserTypeID
+        //                       where t.TopicID = @PlotID;";
 
-                var result = (await connection.QueryAsync<(int, string, string, DateTime, int, string, int, string, int, int)>(querry, new { PlotID = id })).ToList();
-                return result;
-            }
-        }
+        //        var result = (await connection.QueryAsync<(int, string, string, DateTime, int, string, int, string, int, int)>(querry, new { PlotID = id })).ToList();
+        //        return result;
+        //    }
+        //}
 
         /* New Layout */
 
@@ -130,7 +130,7 @@ namespace Forum.Repositories
 
         /* Dapper map test */
 
-        public async Task<List<Topic>> DapperTest(int id)
+        public async Task<List<Topic>> LoadPlot(int id)
         {
             using (var connection = _context.CreateConnection())
             {

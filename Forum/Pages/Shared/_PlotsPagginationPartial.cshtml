@@ -1,0 +1,53 @@
+﻿<nav>
+    <ul class="pagination">
+        @if (Model.showPrevious)
+        {
+            <li class="page-item"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage - 1)">Previous</a></li>
+        }
+        else
+        {
+            <li class="page-item disabled"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage - 1)">Previous</a></li>
+        }
+
+        @{
+            switch (Model.currentPage)
+            {
+                case int j when Model.currentPage < 1: break;
+                case int j when Model.currentPage == 1 && Model.totalPages < 2:
+                    <li class="page-item active"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@Model.currentPage">@Model.currentPage</a></li>
+                    ;
+                    break;
+                case int j when Model.currentPage == 1 && Model.totalPages > 1:
+                    <li class="page-item active"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@Model.currentPage">@Model.currentPage</a></li>
+                    ;
+                    <li class="page-item"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage+1)">@(Model.currentPage + 1)</a></li>
+                    ;
+                    break;
+                case int j when Model.currentPage > 1 && Model.currentPage < Model.totalPages:
+                    <li class="page-item"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage-1)">@(Model.currentPage - 1)</a></li>
+                    ;
+                    <li class="page-item active"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@Model.currentPage">@Model.currentPage</a></li>
+                    ;
+                    <li class="page-item"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage+1)">@(Model.currentPage + 1)</a></li>
+                    ;
+                    break;
+                case int j when Model.currentPage == Model.totalPages:
+                    <li class="page-item"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage-1)">@(Model.currentPage - 1)</a></li>
+                    ;
+                    <li class="page-item active"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@Model.currentPage">@Model.currentPage</a></li>
+                    ;
+                    break;
+
+            }
+        }
+
+        @if (Model.showNext)
+        {
+            <li class="page-item"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage + 1)">Next</a></li>
+        }
+        else
+        {
+            <li class="page-item disabled"><a class="page-link" asp-page="/Plots" asp-route-currentpage="@(Model.currentPage + 1)">Next</a></li>
+        }
+    </ul>
+</nav>

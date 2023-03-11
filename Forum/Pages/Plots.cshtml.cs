@@ -30,19 +30,19 @@ namespace Forum.Pages
         public bool showPrevious => currentPage > 1;
         public bool showNext => currentPage < totalPages;
 
-        public List<(int TopicID, string TopicName, string TopicDescription, DateTime TopicAddedDate, int UserID, string UserName, int UserTypeID, string UserTypeName, int VotePlus, int VoteMinus)> plotsTopicData { get; private set; }
-        public List<(string CommentText, DateTime CommentAddedTime, bool IsActive, string UserName)> plotsCommentData { get; private set; }
+        //public List<(int TopicID, string TopicName, string TopicDescription, DateTime TopicAddedDate, int UserID, string UserName, int UserTypeID, string UserTypeName, int VotePlus, int VoteMinus)> plotsTopicData { get; private set; }
+        //public List<(string CommentText, DateTime CommentAddedTime, bool IsActive, string UserName)> plotsCommentData { get; private set; }
         public List<Topic> dapperTest { get; private set; }
         public List<Comment> dapperComments { get; private set; }
 
         public async Task OnGet(int id, int currentPage)
         {
             commentCounter = await _comments.GetCommentAmmountPerTopic(id);
-            plotsTopicData = await _topics.LoadPlotTopic(id);
-            plotsCommentData = await _comments.LoadPlotsComments(id,currentPage);
+            //plotsTopicData = await _topics.LoadPlotTopic(id);
+            //plotsCommentData = await _comments.LoadPlotsComments(id,currentPage);
 
-            dapperTest = await _topics.DapperTest(id);
-            dapperComments = await _comments.DapperCommentsTest(id, currentPage);
+            dapperTest = await _topics.LoadPlot(id);
+            dapperComments = await _comments.LoadPlotComments(id, currentPage);
         }
 
         public async Task<IActionResult> OnPostAddComment([FromRoute] int id)

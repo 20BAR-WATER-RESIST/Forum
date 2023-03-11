@@ -4,7 +4,7 @@
     Layout = "_Layout-Plots";
 }
 
-@await Html.PartialAsync("_PagginationPartial", Model)
+@await Html.PartialAsync("_PlotsPagginationPartial", Model)
 
 <div class="col-12 gy-0 m-0 p-0" style="background-color: none;">
     <div class="row gy-3 gx-0 justify-content-center d-flex flex-column commentery-flex-centering">
@@ -55,6 +55,8 @@
         }
         else
         {
+            HttpContext.Session.SetString("PreviousUrl", Request.Path);
+
             <div class="col-6">
                 <div class="alert alert-primary text-center" role="alert">
                     Adding comments for <a asp-page="/Account/Login" class="alert-link">logged in</a> only.

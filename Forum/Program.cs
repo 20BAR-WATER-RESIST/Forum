@@ -1,8 +1,9 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Repositories;
+using Forum.Security;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Org.BouncyCastle.Pkix;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +21,28 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<ICRUD_Repository, CRUD_Repository>();
+builder.Services.AddSingleton<IAuthorizationHandler, BaseStaffPolicyHandler>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=>
 {
     options.Cookie.Name = "YourCookieNameHere";
     options.LoginPath = "/Account/Login";
+    options.ExpireTimeSpan = TimeSpan.FromHours(1);
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+
+    options.AddPolicy(Policies.ModeratorOnly, Policies.ModeratorPolicy());
+    options.AddPolicy(Policies.AdminOnly, Policies.AdminPolicy());
+    options.AddPolicy(Policies.OwnerOnly, Policies.OwnerPolicy());
+    options.AddPolicy("BaseStaff", policy => policy.Requirements.Add(new BaseStaffPolicyRequirement()));
+});
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
 var app = builder.Build();
@@ -41,6 +60,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 
