@@ -1,4 +1,80 @@
-﻿@page
+﻿@page "{profileName}"
 @model Forum.Pages.Account.ProfileModel
 @{
+    Layout = "_Layout-Profile";
 }
+
+
+<div class="row align-items-center g-0 p-0 m-0">
+    <div class="d-inline-flex g-0 p-0 my-2" style="min-height: 150px;">
+        <div class="col-lg-2 d-flex align-items-center justify-content-center">
+            <img class="rounded-circle" src="/img/user-profile.png" style="width: 150px; height: 150px;" />
+        </div>
+        <div class="col-lg-8 d-flex flex-column align-items-start justify-content-center">
+            <span class="fs-2 fw-bold">@Model.userProfileHeader.UserName</span>
+            <span>Member type: @Model.userProfileHeader.UserTypes.UserTypeName</span>
+            <span class="d-inline-flex text-muted">
+                <span>Member since: @Model.userProfileHeader.UserRegisteredDate.ToString("dd/MM/yyyy")</span>
+            </span>
+        </div>
+        <div class="col-lg-2 d-inline-flex justify-content-end align-items-end p-2 gap-1">
+            @if (User.Identity.Name.Equals(Model.ProfileName, StringComparison.OrdinalIgnoreCase))
+            {
+                <button type="button" class="btn btn-outline-secondary btn-sm">Settings</button>
+                <button type="button" class="btn btn-outline-primary btn-sm">Logout</button>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="row align-items-start justify-content-between g-0 p-0 m-0">
+    <div class="col-lg-8 rounded d-flex flex-column p-4 shadow-sm gap-3" style="background-color: #F2F2F2;">
+        <span class="wrapper d-inline-flex justify-content-between">
+            <span class="fs-5 fw-bold">Topics:</span>
+            <a href="#" class="link-primary text-decoration-none"><span class="fs-10">view all</span></a>
+        </span>
+        <section class="py-3">
+            <ul class="timeline">
+                @foreach(var topics in Model.userProfileTopics){
+                    <li class="timeline-item mb-5">
+                        <h5 class="fw-bold">@topics.TopicName</h5>
+                        <p class="text-muted mb-2 fw-bold">@topics.TopicAddedDate</p>
+                        <p class="text-muted">
+                            @{var tt = await Model.TrimString(topics.TopicDescription, 100);}
+                            @tt
+                        </p>
+                    </li>
+                }
+            </ul>
+
+        </section>
+
+        <span class="wrapper d-inline-flex justify-content-between">
+            <span class="fs-5 fw-bold">Comments:</span>
+            <a href="#" class="link-primary text-decoration-none"><span class="fs-10">view all</span></a>
+        </span>
+        <section class="py-3">
+            <ul class="timeline">
+                @foreach(var comments in Model.userProfileComments){
+                    <li class="timeline-item mb-5">
+                        <h5 class="fw-bold">
+                            @{var ct = await Model.TrimString(comments.CommentText, 30);}
+                            @ct
+                        </h5>
+                        <p class="text-muted mb-2 fw-bold">@comments.CommentAddedTime.ToString("dd/MM/yyyy")</p>
+                        <p class="text-muted">
+                            @Model.userProfileHeader.UserName answered in this <a class="link-primary text-decoration-none" asp-page="/Plots" asp-route-id="@comments.TopicID">Topic</a>
+                        </p>
+                    </li>
+                }
+            </ul>
+        </section>
+    </div>
+    <div class="col-lg-3 rounded d-flex flex-column p-4 shadow-sm gap-3" style="background-color: #F2F2F2;">
+        <span class="fs-5 fw-bold">About @Model.userProfileHeader.UserName</span>
+        <span>
+            Nostra duis. Placerat diam vel, senectus consequat pede diam. Nibh. Commodo nullam augue fermentum per id Iaculis varius potenti a vitae. Nibh. Commodo nullam augue fermentum per id Iaculis varius potenti a vitae.Nostra duis. Placerat diam vel, senectus consequat pede diam. Nibh. Commodo nullam augue fermentum per id Iaculis varius potenti a vitae. Nibh. Commodo nullam augue fermentum per id Iaculis varius potenti a vitae.
+        </span>
+    </div>
+</div>

@@ -1,10 +1,12 @@
 ﻿@if(User.Identity.IsAuthenticated){
-    <form method="post" class="form-inline" asp-page="/Account/Logout">
-        Witaj @User.Identity.Name
-        <input type="submit" class="m-lg-2 btn btn-link" value="Logout" />
-    </form>
+    <li class="nav-item">
+        <a asp-page="/Account/Profile" asp-route-profileName="@User.Identity.Name"><img src="/img/user-profile.png" width="38" height="38" /></a>
+    </li>
+    <li class="nav-item">
+        <a class="btn btn-outline-primary btn-sm" asp-page="/Account/Logout">Sign Out</a>
+    </li>
 } else {
-    <form method="post" class="form-inline" asp-page="/Account/Login">
-        <input type="submit" class="m-lg-2 btn btn-link" value="Login" />
-    </form>
+    <li class="nav-item">
+        <a class="btn btn-outline-primary btn-sm" asp-page="/Account/Login">Sign In</a>
+    </li>
 }

@@ -14,5 +14,17 @@ namespace Forum.Repositories
             _context = context;
         }
 
+        public async Task<List<Category>> LoadListOfCategories()
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = @"select cat.CategoryID, cat.CategoryName from categories cat
+                              where cat.IsActive = true
+                              order by cat.CategoryID;";
+                var results = await connection.QueryAsync<Category>(query);
+
+                return results.ToList();
+            }
+        }
     }
 }

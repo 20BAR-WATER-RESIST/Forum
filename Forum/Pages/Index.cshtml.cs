@@ -41,12 +41,12 @@ namespace Forum.Pages
             if (dataTime.TotalHours < 1)
             {
                 int minutes = (int)dataTime.TotalMinutes;
-                return $"{minutes} {(minutes == 1 ? "minute" : "minutes")}";
+                return $"{minutes} {(minutes == 1 ? "min" : "min's")}";
             }
             else if (dataTime.TotalHours < 24)
             {
                 int hours = (int)dataTime.TotalHours;
-                return $"{hours} {(hours == 1 ? "hour" : "hours")}";
+                return $"{hours} {(hours == 1 ? "h" : "h's")}";
             }
             else
             {

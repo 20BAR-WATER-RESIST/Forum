@@ -2,6 +2,7 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Models;
+using MySqlX.XDevAPI.Common;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
@@ -155,6 +156,23 @@ namespace Forum.Repositories
 
                 return result.ToList();
 
+            }
+        }
+
+        public async Task<List<Topic>> LoadUserProfileTopics(string name)
+        {
+            using(var connection = _context.CreateConnection())
+            {
+                var query = @"select t.TopicID, t.TopicName, t.TopicDescription, t.TopicAddedDate from topics t
+                              left join users u on t.UserID = u.UserID
+                              where u.UserName = @Name
+                              order by t.TopicAddedDate desc;";
+                var results = await connection.QueryAsync<Topic>(
+                    sql: query,
+                    param: new { Name = name }
+                );
+
+                return results.ToList();
             }
         }
 

@@ -26,13 +26,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     options.Cookie.Name = "YourCookieNameHere";
     options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
     options.ExpireTimeSpan = TimeSpan.FromHours(1);
 });
 builder.Services.AddAuthorization(options =>
 {
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
+    //options.FallbackPolicy = new AuthorizationPolicyBuilder()
+    //    .RequireAuthenticatedUser()
+    //    .Build();
 
     options.AddPolicy(Policies.ModeratorOnly, Policies.ModeratorPolicy());
     options.AddPolicy(Policies.AdminOnly, Policies.AdminPolicy());

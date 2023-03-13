@@ -65,13 +65,13 @@ namespace Forum.Repositories
                 else { pageCalc = (currentPage - 1) * 10; }
 
                 var query = @"SELECT c.CommentID, c.CommentText, c.CommentAddedTime, c.UserID, c.VotePlus, c.VoteMinus, u.UserName, u.UserTypeID,
-                ut.UserTypeName
-            FROM comments c
-            INNER JOIN users u ON c.UserID = u.UserID
-            INNER JOIN UsersTypes ut ON u.UserTypeID = ut.UserTypeID
-            WHERE c.TopicID = @TopicId
-            order by c.CommentAddedTime asc
-            limit 10 offset @PageNumber;";
+                              ut.UserTypeName
+                              FROM comments c
+                              INNER JOIN users u ON c.UserID = u.UserID
+                              INNER JOIN UsersTypes ut ON u.UserTypeID = ut.UserTypeID
+                              WHERE c.TopicID = @TopicId
+                              order by c.CommentAddedTime asc
+                              limit 10 offset @PageNumber;";
 
 
                 var result = await connection.QueryAsync<Comment, User, UserType, Comment>(
@@ -86,6 +86,24 @@ namespace Forum.Repositories
                     splitOn: "UserName,UserTypeName");
 
                 return result.ToList();
+            }
+        }
+
+        public async Task<List<Comment>> LoadUserProfileComments(string name)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = @"select c.CommentID, c.CommentText, c.CommentAddedTime, t.TopicID from comments c
+                              left join users u on c.UserID = u.UserID
+                              left join topics t on t.TopicID = c.TopicID
+                              where u.UserName = @Name
+                              order by c.CommentAddedTime desc;";
+                var results = await connection.QueryAsync<Comment>(
+                    sql: query,
+                    param: new { Name = name }
+                );
+
+                return results.ToList();
             }
         }
 

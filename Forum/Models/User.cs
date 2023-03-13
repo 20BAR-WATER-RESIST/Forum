@@ -19,6 +19,7 @@ namespace Forum.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [BindNever]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime UserRegisteredDate { get; set; }
         [BindNever]
         public DateTime? UserBannedTime { get; set; }
