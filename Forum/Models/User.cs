@@ -14,10 +14,10 @@ namespace Forum.Models
         [Required]
         [BindProperty]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string UserPassword { get; set; }
         [BindProperty]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string UserEmail { get; set; }
         [BindNever]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime UserRegisteredDate { get; set; }

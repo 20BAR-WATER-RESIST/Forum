@@ -43,7 +43,7 @@ namespace Forum.Pages.Account
 
                 var claims = new List<Claim>() { new Claim(ClaimTypes.Name, userData.UserName),
                                                  new Claim(ClaimTypes.Email, userData.UserEmail),
-                                                 new Claim(ClaimTypes.Role, userData.UserTypeName)
+                                                 new Claim(ClaimTypes.Role, userData.UserTypes.UserTypeName)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

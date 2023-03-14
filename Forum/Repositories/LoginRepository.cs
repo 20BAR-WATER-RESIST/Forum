@@ -20,10 +20,10 @@ namespace Forum.Repositories
         {
             using(var connection = _context.CreateConnection())
             {
-                var querry = @"select UserEmail, UserPassword from users u
+                var query = @"select UserEmail, UserPassword from users u
                                where u.UserEmail = @Email and u.UserPassword = @Password;";
 
-                var results = await connection.QueryFirstOrDefaultAsync<(string UserEmail, string UserPassword)>(querry, new { Email = email, Password = password });
+                var results = await connection.QueryFirstOrDefaultAsync<User>(query, new { Email = email, Password = password });
 
                 if(results.UserEmail == email && results.UserPassword == password)
                 {
@@ -33,16 +33,24 @@ namespace Forum.Repositories
             }
         }
 
-        public async Task<(string UserEmail, string UserName, string UserTypeName)> GetUserAccData(string email, string password)
+        public async Task<User> GetUserAccData(string email, string password)
         {
             using (var conntection = _context.CreateConnection())
             {
-                var querry = @"select UserEmail, UserName, ut.UserTypeName from users u
+                var query = @"select UserEmail, UserName, u.UserTypeID, ut.UserTypeName from users u
                                left join userstypes ut on u.UserTypeID = ut.UserTypeID 
                                where u.UserEmail = @Email AND u.UserPassword = @Password;";
 
-                var results = await conntection.QueryFirstOrDefaultAsync<(string UserEmail, string UserName, string UserTypeName)>(querry, new { Email = email, Password = password });
-                return results;
+                var results = await conntection.QueryAsync<User, UserType, User>(sql: query,
+                    map: (user, usertype) =>
+                    {
+                        user.UserTypes = usertype;
+                        return user;
+                    },
+                    param: new { @Email = email, Password = password},
+                    splitOn: "UserTypeID"
+                );
+                return results.FirstOrDefault();
             }
         }
     }

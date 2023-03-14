@@ -203,7 +203,7 @@ body {
     }
 
 .custom-active {
-    border: 3px solid #28a745;
+    border: 2px solid #28a745;
     border-radius: 45%;
     background-color: transparent;
     color: black;

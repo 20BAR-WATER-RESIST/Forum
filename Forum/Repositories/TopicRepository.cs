@@ -17,9 +17,6 @@ namespace Forum.Repositories
             _context = context;
         }
 
-        /* New Layout */
-
-
         public async Task<List<Topic>> LoadIndexPageTopics()
         {
             using (var connection = _context.CreateConnection())
@@ -117,8 +114,6 @@ namespace Forum.Repositories
                 return results.ToList();
             }
         }
-
-        /* Dapper map test */
 
         public async Task<List<Topic>> LoadPlot(int id)
         {
