@@ -6,12 +6,11 @@ namespace Forum.Contracts
     public interface ITopicRepository
     {
         Task<List<Topic>> LoadPlot(int id);
-        Task<int> GetTopicAmmountPerCategory(int id);
-        Task<List<(int CategoryID, string CategoryName, int TotalTopicCount)>> IndexPageBoardCategories();
-        Task<List<(int TopicID, string TopicName, string TopicDescription, int ViewCount, int CommentCount, TimeSpan TimeDiff)>> IndexPageBoardTopics();
-        Task<List<(int TopicID, string TopicName, DateTime TopicAddedDate, int CommentCount)>> LatestHotTopics();
-        Task<List<(int CategoryID, int TopicID, string TopicName, string TopicAuthor, DateTime TopicAddedDate, int CommentCount, string CommentAuthor, DateTime CommentAddedTime)>> LoadBoard(int id, int currentPage);
         Task<List<Topic>> LoadUserProfileTopics(string name);
-        //Task<List<(int TopicID, string TopicName, string TopicDescription, DateTime TopicAddedDate, int UserID, string UserName, int UserTypeID, string UserTypeName, int VotePlus, int VoteMinus)>> LoadPlotTopic(int id);
+        Task<List<Topic>> LoadIndexPageTopics();
+        Task<List<Topic>> LatestHotTopics();
+        Task<List<Topic>> LoadBoardPageTopics(int id, int currentPage);
+        Task<List<Topic>> BoardLatestHotTopics(int id);
+        Task<List<Topic>> SearchTopics(string text);
     }
 }

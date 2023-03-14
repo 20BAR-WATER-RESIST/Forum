@@ -1,0 +1,61 @@
+﻿@page
+@model SearchModel
+@{
+}
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-warning d-flex justify-content-center">@Model.Message</div>
+}
+else{
+
+    <div class="col-lg-12 order-2 order-lg-1 gy-0 m-0 p-0" style="background-color: none;">
+        <div class="row gx-0 gap-2">
+
+            @foreach (var data in Model.topicSearchData)
+            {
+
+                <div class="col-12 post-col shadow-sm mt-2 mt-lg-0" style="background-color: #F2F2F2">
+                    <div class="post m-0 p-0 g-0">
+                        <div class="info-area pull-left">
+                            <div class="user-info pull-left">
+                                <a asp-page="/Account/Profile" asp-route-profileName="@data.Users.UserName"><img src="img/user-profile.png" /></a>
+                            </div>
+                            <div class="topic-info pull-left">
+                                <a class="topic-title" asp-page="/Plots" asp-route-id="@data.TopicID" asp-rout-title="@data.TopicName">
+                                    @{
+                                        var mt = await Model.TrimString(data.TopicName, 60);
+                                    }
+                                    @mt
+                                </a><br />
+                                <span class="topic-describe">
+                                    @{
+                                        var td = await Model.TrimString(data.TopicDescription, 60);
+                                    }
+                                    @td
+                                </span>
+                            </div>
+                        </div>
+                        <div class="stats-area pull-left">
+                            <div class="comments-count">
+                                <img src="img/speech-bubble.png" />
+                                <span>@data.TotalCommentCount</span>
+                            </div>
+                            <div class="views-count">
+                                <img src="img/eye.png" /><span>@data.ViewCount</span>
+                            </div>
+                            <div class="posted-timer">
+                                <img src="img/clock.png" /><span>
+                                    @{
+                                        var time = await Model.Timer(data.TimeDiff);
+                                    } @time
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+

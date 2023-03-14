@@ -12,25 +12,19 @@ namespace Forum.Pages.Account
         private readonly IUserRepository _userRepository;
         private readonly ITopicRepository _topicRepository;
         private readonly ICommentRepository _commentRepository;
+        private readonly IBaseMethodsRepository _baseMethodsRepository;
 
-        public ProfileModel(IUserRepository userRepository, ITopicRepository topicRepository, ICommentRepository commentRepository)
+        public ProfileModel(IUserRepository userRepository, ITopicRepository topicRepository, ICommentRepository commentRepository, IBaseMethodsRepository baseMethodsRepository)
         {
             _userRepository = userRepository;
             _topicRepository = topicRepository;
             _commentRepository = commentRepository;
+            _baseMethodsRepository = baseMethodsRepository;
         }
 
-        public async Task<string> TrimString(string title, int lenght)
+        public async Task<string> TrimString(string description, int lenght)
         {
-            string results = title.ToString();
-            string backresults = results.Substring(0, Math.Min(results.Length, lenght));
-
-            if (results.Length > lenght)
-            {
-                backresults += "...";
-            }
-
-            return backresults;
+            return await _baseMethodsRepository.TrimString(description, lenght);
         }
 
         public string ProfileName { get; private set; }

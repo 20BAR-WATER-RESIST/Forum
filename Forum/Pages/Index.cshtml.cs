@@ -1,4 +1,5 @@
 ﻿using Forum.Contracts;
+using Forum.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -8,57 +9,35 @@ namespace Forum.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly Contracts.ICategoryRepository _categories;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly ITopicRepository _topics;
+        private readonly IBaseMethodsRepository _baseMethodsRepository;
 
-        public IndexModel(ICategoryRepository categories, ITopicRepository topics)
+        public IndexModel(ICategoryRepository categoryRepository,ITopicRepository topics, IBaseMethodsRepository baseMethodsRepository)
         {
-            _categories = categories;
+            _categoryRepository = categoryRepository;
             _topics = topics;
+            _baseMethodsRepository = baseMethodsRepository;
         }
 
-        public List<(int TopicID, string TopicName, string TopicDescription, int ViewCount, int CommentCount, TimeSpan TimeDiff)> indexData;
+        public List<Topic> indexPageTopicData { get; private set; }
+        public List<Category> indexPageCategoryData { get; private set; }
+        public List<Topic> indexHotTopicsData { get; private set; }
 
-        public List<(int CategoryID, string CategoryName, int TotalTopicCount)> indexCatData { get; private set; }
-        public List<(int TopicID, string TopicName, DateTime TopicAddedDate, int CommentCount)> indexHotTopicsData { get; private set; }
-
-        public async Task<string> TrimString(string title)
+        public async Task<string> TrimString(string description, int lenght)
         {
-            string results = title.ToString();
-            int maxLenght = 20;
-            string backresults = results.Substring(0, Math.Min(results.Length, maxLenght));
-
-            if (results.Length > maxLenght)
-            {
-                backresults += "...";
-            }
-
-            return backresults;
+            return await _baseMethodsRepository.TrimString(description, lenght);
         }
 
-        public async Task<string> TopicTimer(TimeSpan dataTime)
+        public async Task<string> Timer(TimeSpan dataTime)
         {
-            if (dataTime.TotalHours < 1)
-            {
-                int minutes = (int)dataTime.TotalMinutes;
-                return $"{minutes} {(minutes == 1 ? "min" : "min's")}";
-            }
-            else if (dataTime.TotalHours < 24)
-            {
-                int hours = (int)dataTime.TotalHours;
-                return $"{hours} {(hours == 1 ? "h" : "h's")}";
-            }
-            else
-            {
-                int days = (int)dataTime.TotalDays;
-                return $"{days} {(days == 1 ? "day" : "days")}+";
-            }
+            return await _baseMethodsRepository.TopicTimer(dataTime);
         }
 
         public async Task OnGet()
         {
-            indexData = await _topics.IndexPageBoardTopics();
-            indexCatData = await _topics.IndexPageBoardCategories();
+            indexPageTopicData = await _topics.LoadIndexPageTopics();
+            indexPageCategoryData = await _categoryRepository.LoadIndexPageCategories();
             indexHotTopicsData = await _topics.LatestHotTopics();
         }
     }

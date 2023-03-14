@@ -4,60 +4,112 @@
     Layout = "_Layout";
 }
 
-@await Html.PartialAsync("_PagginationPartial", Model)
+<div class="col-12 col-lg-6 order-2 order-lg-1 gy-0 m-0 p-0" style="background-color: none;">
+    <div class="row gx-0 gap-2">
 
-<table class="table align-middle mb-0 bg-white">
-    <thead class="bg-light">
-        <tr>
-            <th>@RouteData.Values["title"]</th>
+        @await Html.PartialAsync("_PagginationPartial", Model)
 
-        </tr>
-    </thead>
-    <thead class="bg-light">
-        <tr>
-            <th></th>
-            <th>Temat</th>
-            <th>Dodane przez</th>
-            <th>Odpowiedzi</th>
-            <th>Wyświetlenia</th>
-            <th>Ostatnia odpowiedź</th>
+        @foreach (var data in Model.indexPageTopicData)
+        {
 
-        </tr>
-    </thead>
-@foreach(var topics in Model.boardData){
-        <tbody>
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                         alt=""
-                         style="width: 45px; height: 45px"
-                         class="rounded-circle" />
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1"></p>
-                            <p class="text-muted mb-0"></p>
+            <div class="col-12 post-col shadow-sm mt-2 mt-lg-0" style="background-color: #F2F2F2">
+                <div class="post m-0 p-0 g-0">
+                    <div class="info-area pull-left">
+                        <div class="user-info pull-left">
+                            <a asp-page="/Account/Profile" asp-route-profileName="@data.Users.UserName"><img src="/img/user-profile.png" /></a>
+                        </div>
+                        <div class="topic-info pull-left">
+                            <a class="topic-title" asp-page="/Plots" asp-route-id="@data.TopicID" asp-rout-title="@data.TopicName">
+                                @{
+                                    var mt = await Model.TrimString(data.TopicName, 20);
+                                }
+                                @mt
+                            </a><br />
+                            <span class="topic-describe">
+                                @{
+                                    var td = await Model.TrimString(data.TopicDescription, 20);
+                                }
+                                @td
+                            </span>
                         </div>
                     </div>
-                </td>
-                <td>
-                    <a class="nav-link text-dark" asp-page="/Plots" asp-route-id="@topics.TopicID"><p>@topics.TopicName</p></a>
-                    <p class="text-muted mb-0">TopicDescription</p>
-                </td>
-                <td>
-                    @topics.TopicAuthor
-                </td>
-                <td>
-                    @topics.CommentCount
-                </td>
-                <td>
-                    
-                </td>
-                <td>
-                    przez @topics.CommentAuthor <br />
-                    @topics.CommentAddedTime.ToLocalTime()
-                </td>
-            </tr>
-        </tbody>
-    }
-</table>
+                    <div class="stats-area pull-left">
+                        <div class="comments-count">
+                            <img src="/img/speech-bubble.png" />
+                            <span>@data.TotalCommentCount</span>
+                        </div>
+                        <div class="views-count">
+                            <img src="/img/eye.png" /><span>@data.ViewCount</span>
+                        </div>
+                        <div class="posted-timer">
+                            <img src="/img/clock.png" /><span>
+                                @{
+                                    var time = await Model.Timer(data.TimeDiff);
+                                } @time
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
+
+
+<div class="col-12 col-lg-3 order-1 order-lg-2 gy-0 m-0 p-0" style="background-color: none;">
+    <div class="row gy-2 gx-0">
+        <div class="col-12 right-nav-col d-flex flex-column p-3 shadow-sm" style="background-color:#F2F2F2">
+            <span class="sidebar-title nav-item ps-3">Categories</span>
+            <hr>
+            <ul class="nav flex-column">
+
+                @foreach (var data in Model.indexPageCategoryData)
+                {
+                    <li class="nav-item d-flex justify-content-between flex-centering @(Model.Active(data.CategoryID) ? "fw-bold" : "")">
+                        <a class="nav-link sidebar-link" asp-page="/Board" asp-route-id="@data.CategoryID" asp-route-title="@data.CategoryName">@data.CategoryName</a>
+                        <span>@data.TotalTopicCount</span>
+                    </li>
+                }
+
+            </ul>
+        </div>
+        <div class="col-12 right-nav-col d-flex flex-column p-3 d-none d-lg-block shadow-sm" style="background-color:#F2F2F2">
+            <span class="sidebar-title nav-item ps-3">Latest Hot Topics</span>
+            <hr>
+            <ul class="nav flex-column">
+                @foreach (var data in Model.indexHotTopicsData)
+                {
+                    <li class="nav-item d-flex justify-content-between flex-centering">
+                        <a class="nav-link sidebar-link" asp-page="/Plots" asp-route-id="@data.TopicID" asp-route-title="@data.TopicName">@{
+                                var topicTitle = await Model.TrimString(data.TopicName, 20);
+                            }@topicTitle</a>
+                        <span><img src="/img/speech-bubble.png" width='10' height='10' />@data.TotalCommentCount</span>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="col-12 right-nav-col d-flex flex-column p-3 d-none d-lg-block shadow-sm" style="background-color:#F2F2F2">
+            <span class="sidebar-title nav-item ps-3">Active Users</span>
+            <hr>
+            <ul class="nav flex-fill">
+                <li class="nav-item p-2">
+                    <a class="nav-link sidebar-link active" href="#"><a class="nav-link p-0" href="#"><img src="/img/user.png" width="40" height="40" /></a></a>
+                </li>
+                <li class="nav-item p-2">
+                    <a class="nav-link sidebar-link active" href="#"><a class="nav-link p-0" href="#"><img src="/img/user.png" width="40" height="40" /></a></a>
+                </li>
+                <li class="nav-item p-2">
+                    <a class="nav-link sidebar-link active" href="#"><a class="nav-link p-0" href="#"><img src="/img/user.png" width="40" height="40" /></a></a>
+                </li>
+                <li class="nav-item p-2">
+                    <a class="nav-link sidebar-link active" href="#"><a class="nav-link p-0" href="#"><img src="/img/user.png" width="40" height="40" /></a></a>
+                </li>
+                <li class="nav-item p-2">
+                    <a class="nav-link sidebar-link active" href="#"><a class="nav-link p-0" href="#"><img src="/img/user.png" width="40" height="40" /></a></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

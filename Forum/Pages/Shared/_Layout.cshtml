@@ -7,20 +7,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/profile-style.css" rel="stylesheet" />
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg" style="background-color: #F2F2F2;">
-        <div class="container-lg justify-content-end d-block d-lg-flex">
+        <div class="container-lg justify-content-between d-block d-lg-flex">
+            <div class="wrapper">
+                <a asp-page="/Index"><img src="/img/home-icon.png" width="30" height="30" /></a>
+            </div>
             <ul class="navbar-nav header-right-nav gap-3">
                 <li class="nav-item">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+                    <form method="get" asp-page="/Search" class="d-flex">
+                        <input class="form-control me-2 shadow-none" type="search" placeholder="Search" aria-label="Search" name="textContent" />
+                        <input class="btn btn-sm btn-outline-secondary shadow-none" type="submit" value="Search" />
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-success" asp-page="/NewTopic">Start New Topic</a>
+                    <a class="btn btn-success shadow-none" asp-page="/NewTopic">Start New Topic</a>
                 </li>
                 @await Html.PartialAsync("_LoginFrontEndLogic.cshtml")
             </ul>

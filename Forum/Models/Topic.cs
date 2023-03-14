@@ -19,6 +19,7 @@ namespace Forum.Models
         public DateTime? TopicBannedDate { get; set; }
         public TimeSpan TimeDiff { get; set; }
         public int? TotalTopicCount { get; set; }
+        public int? TotalCommentCount { get; set; }
         public int? ViewCount { get; set; }
         public int? VotePlus { get; set; }
         public int? VoteMinus { get; set; }

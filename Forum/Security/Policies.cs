@@ -34,15 +34,5 @@ namespace Forum.Security
                 .Build();
         }
 
-        public const string Staff = "OwnerOnly";
-        public static AuthorizationPolicy StaffPolicy()
-        {
-            return new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .RequireClaim("UserTypeID", "535")
-                .RequireClaim("UserTypeName", "Owner")
-                .Build();
-        }
-
     }
 }

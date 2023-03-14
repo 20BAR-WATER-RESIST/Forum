@@ -1,7 +1,7 @@
 ﻿@page "{profileName}"
 @model Forum.Pages.Account.ProfileModel
 @{
-    Layout = "_Layout-Profile";
+    Layout = "_Layout";
 }
 
 
@@ -21,7 +21,6 @@
             @if (User.Identity.Name.Equals(Model.ProfileName, StringComparison.OrdinalIgnoreCase))
             {
                 <button type="button" class="btn btn-outline-secondary btn-sm">Settings</button>
-                <button type="button" class="btn btn-outline-primary btn-sm">Logout</button>
             }
         </div>
     </div>

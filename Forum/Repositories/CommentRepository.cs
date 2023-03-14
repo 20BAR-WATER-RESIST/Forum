@@ -64,7 +64,7 @@ namespace Forum.Repositories
                 }
                 else { pageCalc = (currentPage - 1) * 10; }
 
-                var query = @"SELECT c.CommentID, c.CommentText, c.CommentAddedTime, c.UserID, c.VotePlus, c.VoteMinus, u.UserName, u.UserTypeID,
+                var query = @"SELECT c.CommentID, c.CommentText, c.CommentAddedTime, c.UserID, c.VotePlus, c.VoteMinus, c.IsActive, u.UserName, u.UserTypeID,
                               ut.UserTypeName
                               FROM comments c
                               INNER JOIN users u ON c.UserID = u.UserID

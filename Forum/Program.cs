@@ -7,12 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
 builder.Services.Configure<RequestLocalizationOptions>(options => { options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("pl-PL"); });
 builder.Services.AddSingleton<DefaultDbContext>();
-//builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IBaseMethodsRepository, BaseMethodsRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
@@ -31,10 +29,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 });
 builder.Services.AddAuthorization(options =>
 {
-    //options.FallbackPolicy = new AuthorizationPolicyBuilder()
-    //    .RequireAuthenticatedUser()
-    //    .Build();
-
     options.AddPolicy(Policies.ModeratorOnly, Policies.ModeratorPolicy());
     options.AddPolicy(Policies.AdminOnly, Policies.AdminPolicy());
     options.AddPolicy(Policies.OwnerOnly, Policies.OwnerPolicy());

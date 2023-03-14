@@ -3,10 +3,10 @@
         <a asp-page="/Account/Profile" asp-route-profileName="@User.Identity.Name"><img src="/img/user-profile.png" width="38" height="38" /></a>
     </li>
     <li class="nav-item">
-        <a class="btn btn-outline-primary btn-sm" asp-page="/Account/Logout">Sign Out</a>
+        <a class="btn btn-outline-secondary btn-sm shadow-none" asp-page="/Account/Logout">Sign Out</a>
     </li>
 } else {
     <li class="nav-item">
-        <a class="btn btn-outline-primary btn-sm" asp-page="/Account/Login">Sign In</a>
+        <a class="btn btn-outline-secondary btn-sm shadow-none" asp-page="/Account/Login">Sign In</a>
     </li>
 }

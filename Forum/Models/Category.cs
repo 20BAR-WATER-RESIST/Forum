@@ -9,6 +9,7 @@ namespace Forum.Models
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
+        public int? TotalTopicCount { get; set; }
         public bool IsActive { get; set; }
 
         public ICollection<Topic> Topics { get; set; }
