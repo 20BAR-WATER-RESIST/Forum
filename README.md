@@ -6,9 +6,9 @@ Dane do logowania dla testowego profilu:
 login: demo@gmail.com
 hasło: demo
 
-TECHNOLOGIA: Asp .NET Core Razor Pages
-BAZA DANYCH: MYSQL
-ORM: Dapper
+TECHNOLOGIA: Asp .NET Core Razor Pages <br />
+BAZA DANYCH: MYSQL <br />
+ORM: Dapper <br />
 
 CO ZOSTAŁO WPROWADZONE LUB CZĘŚCIOWO DODANE
 
