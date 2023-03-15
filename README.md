@@ -2,8 +2,8 @@
 
 Demo projektu Forum dyskusyjnego
 
-Dane do logowania dla testowego profilu:
-login: demo@gmail.com
+Dane do logowania dla testowego profilu: <br />
+login: demo@gmail.com <br />
 hasło: demo
 
 TECHNOLOGIA: Asp .NET Core Razor Pages <br />
