@@ -9,9 +9,9 @@ hasło: demo
 Baza danych: MYSQL
 ORM: Dapper
 
-1. Co zostało wprowadzone lub częściowo dodane
+CO ZOSTAŁO WPROWADZONE LUB CZĘŚCIOWO DODANE
 
-LOGOWANIE i Autoryzacja:
+LOGOWANIE i AUTORYZACJA:
 - Autentykacja cookies przy logowaniu + persistent cookies przy opcji remember me
 - Przekierowanie na ostatnio odwiedzaną stronę jeśli przejdziemy do logowania z poziomu wnętrza wątku (w innych przypadkach przeniesie na stronę główną)
 
