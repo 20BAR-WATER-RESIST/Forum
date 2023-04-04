@@ -13,9 +13,10 @@ namespace Forum.Pages.Account
             return RedirectToPage("/Index");
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<JsonResult> OnPostAsync()
         {
-            return await Logout();
+            await HttpContext.SignOutAsync();
+            return new JsonResult(new { success = true });
         }
 
         public async Task<IActionResult> OnGetAsync()

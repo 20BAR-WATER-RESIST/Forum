@@ -16,29 +16,30 @@ namespace Forum.Pages.Account
 
         [BindProperty]
         public RegisterForm RegistrationData { get; set; }
-        public bool RegistrationCompleted { get; private set; } = false;
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<JsonResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return new JsonResult(new { success = false, message = "Wprawdzono nieprawid³owy format danych do formularza." });
             } 
 
-            var checkUsr = await _registerRepository.CheckUsernameAvailability(RegistrationData.RegisterUsername);
+            var checkUsr = await _registerRepository.CheckUsernameAndUseremailAvailability(RegistrationData.RegisterUsername, RegistrationData.RegisterEmail);
 
-            if (checkUsr)
+            if (string.IsNullOrEmpty(checkUsr))
             {
                 
-                var registerStatus = await _registerRepository.CompleteRegister(RegistrationData.RegisterEmail, RegistrationData.RegisterUsername, RegistrationData.RegisterPassword);
+                var registerResults = await _registerRepository.CompleteRegister(RegistrationData.RegisterEmail, RegistrationData.RegisterUsername, RegistrationData.RegisterPassword);
 
-                RegistrationCompleted = registerStatus;
-
-                return RedirectToPage("/Index");
+                if (registerResults)
+                {
+                    return new JsonResult(new { success = true });
+                }
+                else { return new JsonResult(new { success = false, message="Wyst¹pi³ b³¹d podczas przetwarzania formularza rejestracji. Spróbuj ponownie za chwilê." }); }
             }
             else
             {
-                return Page();
+                return new JsonResult(new { success = false, message = checkUsr });
             }
 
         }

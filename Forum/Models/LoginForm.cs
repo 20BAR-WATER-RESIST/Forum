@@ -10,7 +10,7 @@ namespace Forum.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(15, MinimumLength = 3)]
+        [StringLength(15, MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Pass { get; set; }

@@ -6,12 +6,13 @@
     <title>@ViewData["Title"] - Forum</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e5cd9c3cf3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="~/css/plots-style.css" rel="stylesheet" />
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #F2F2F2;">
+    <nav class="navbar navbar-expand-lg shadow-sm" style="background-color: #F2F2F2;">
         <div class="container-lg justify-content-between d-block d-lg-flex">
             <div class="wrapper">
                 <a asp-page="/Index"><img src="/img/home-icon.png" width="30" height="30" /></a>
@@ -26,7 +27,7 @@
                 <li class="nav-item">
                     <a class="btn btn-success" asp-page="/NewTopic">Start New Topic</a>
                 </li>
-                @await Html.PartialAsync("_LoginFrontEndLogic.cshtml")
+                @await Html.PartialAsync("./AccountPartials/LoginPartials/_LoginFrontEndLogic.cshtml")
             </ul>
         </div>
     </nav>
@@ -35,6 +36,9 @@
         <div class="row justify-content-evenly py-4">
             
             @RenderBody()
+            @await Html.PartialAsync("./AccountPartials/LoginPartials/_LoginDynamicPartial.cshtml")
+            @await Html.PartialAsync("./AccountPartials/RegistrationPartials/_RegistrationDynamicPartial.cshtml")
+            @await Html.PartialAsync("./AccountPartials/ValidationPartials/_LoginToastPartial.cshtml")
 
         </div>
     </div>
@@ -49,6 +53,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Account/login-register-modal-swap.js" asp-append-version="true"></script>
+    <script src="~/js/Account/login-form-sender.js" asp-append-version="true"></script>
+    <script src="~/js/Account/registration-form-sender.js" asp-append-version="true"></script>
+    <script src="~/js/Account/logout.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.js"></script>

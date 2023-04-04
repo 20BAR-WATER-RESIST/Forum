@@ -16,7 +16,7 @@ namespace Forum.Repositories
             _context = context;
         }
 
-        public async Task<bool> GetVerification(string email, string password)
+        public async Task<string> GetVerification(string email, string password)
         {
             using(var connection = _context.CreateConnection())
             {
@@ -25,11 +25,11 @@ namespace Forum.Repositories
 
                 var results = await connection.QueryFirstOrDefaultAsync<User>(query, new { Email = email, Password = password });
 
-                if(results.UserEmail == email && results.UserPassword == password)
+                if(results != null && results.UserEmail == email && results.UserPassword == password)
                 {
-                    return true;
+                    return string.Empty;
                 }
-                else { return false; }
+                else { return "Błędny adres email lub hasło. Spróbuj ponownie."; }
             }
         }
 

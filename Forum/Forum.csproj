@@ -4,18 +4,30 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3f56ce18-7f09-4d5a-aa46-6a881dd8f275</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\PageModelsOnly\**" />
+    <Content Remove="Pages\PageModelsOnly\**" />
+    <EmbeddedResource Remove="Pages\PageModelsOnly\**" />
+    <None Remove="Pages\PageModelsOnly\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     <PackageReference Include="MySql.Data" Version="8.0.32.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\PageModelsOnly\" />
+    <Folder Include="Components\" />
+    <Folder Include="Pages\Shared\Components\" />
+    <Folder Include="Security\" />
   </ItemGroup>
 
 </Project>

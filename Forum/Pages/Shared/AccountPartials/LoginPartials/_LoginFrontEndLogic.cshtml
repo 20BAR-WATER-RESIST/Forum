@@ -1,0 +1,31 @@
+﻿@if(User.Identity.IsAuthenticated){
+    <li class="nav-item">
+        <div class="btn-group d-flex flex-column">
+            <span type="button" class="nav-link p-0 btn" data-bs-toggle="dropdown" aria-expanded="false" href="#"><img src="/img/user-profile.png" width="38" height="38" /></span>
+
+            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-md-end flex-centering">
+                <li><a asp-page="/Account/Profile" asp-route-profileName="@User.Identity.Name" style="text-decoration: none;"><button class="dropdown-item" type="button">Profile</button></a></li>
+                <li><button class="dropdown-item" type="button">Mailbox</button></li>
+                <li><button class="dropdown-item" type="button">Settings</button></li>
+                <li><hr class="dropdown-divider"></hr></li>
+                <li>
+                    @if(User.IsInRole("Admin") || User.IsInRole("Owner"))
+                    {
+                        <li>
+                            <a asp-page="/Manager/Dashboard" style="text-decoration: none;"><button class="dropdown-item" type="button">Manager</button></a>
+                        </li>
+                    }
+                    
+                <li>
+                    <button id="sign-out" class="dropdown-item" type="button">Sign Out</button>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+} else {
+    <li class="nav-item">
+        <a class="btn btn-outline-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#loginModal">Sign In</a>
+    </li>
+}
+

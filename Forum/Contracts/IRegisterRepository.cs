@@ -2,7 +2,7 @@
 {
     public interface IRegisterRepository
     {
-        Task<bool> CheckUsernameAvailability(string username);
+        Task<string> CheckUsernameAndUseremailAvailability(string username, string email);
         Task<bool> CompleteRegister(string regEmail, string regUsername, string regPassword);
     }
 }

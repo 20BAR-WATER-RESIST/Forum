@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Forum</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e5cd9c3cf3.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="~/css/manager-style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/profile-style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container-fluid m-0 p-0 g-0 vh-100">
+        <div class="row d-flex flex-column flex-md-row d-md-inline-flex w-100 m-0" style="background-color: rgb(235, 235, 235);">
+            <div class="col-12 d-md-none p-0 m-0 g-0">
+                <button id="menuToggler" class="btn btn-lg col-12 border-0 rounded-0" style="background-color: #056CF2"><img src="/img/more.png" /></button>
+            </div>
+            <div id="sidebar" class="col-12 col-md-3 col-lg-2 d-md-flex flex-column pt-1 p-md-3 text-md-start text-wrap vh-100" style="background-color: #1B8EF2; color: antiquewhite;">
+                <a href="" class="rounded-3 justify-content-center justify-content-md-start">
+                    <img src="/img/home-icon.png" style="width: 32px; height: 32px;" />
+                    <span style="font-size: larger;">Forum</span>
+                </a>
+                <hr>
+                <a href="" class="rounded-3 justify-content-center justify-content-md-start">
+                    <img src="/img/dashboard-icon.png" />
+                    <span>Dashboard</span>
+                </a>
+                <a href="" class="rounded-3 justify-content-center justify-content-md-start">
+                    <img src="/img/users-group.png" />
+                    <span>Find Users</span>
+                </a>
+                <a href="" class="rounded-3 justify-content-center justify-content-md-start">
+                    <img src="/img/team-members.png" />
+                    <span>Team Members</span>
+                </a>
+                <hr>
+                <a href="" class="rounded-3 justify-content-center justify-content-md-start">
+                    <img src="/img/log-out.png" />
+                    <span>Sign Out</span>
+                </a>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+
+    
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Manager/managerMenuHandler.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -12,7 +12,7 @@ namespace Forum.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        [StringLength(12,MinimumLength = 6)]
+        [StringLength(15, MinimumLength = 8)]
         public string RegisterPassword { get; set; }
         [Required]
         [EmailAddress]

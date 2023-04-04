@@ -1,0 +1,126 @@
+﻿@page
+@model Forum.Pages.Manager.DashboardModel
+@{
+    Layout = "_Layout-Manager";
+}
+
+<div class="col-12 col-md-9 col-lg-10 p-1 pt-md-0 d-flex flex-column flex-md-row vh-100" style="background-color: rgb(235, 235, 235);">
+    <div class="d-none d-lg-flex col-lg-1"></div>
+    <div class="col-12 col-lg-10 mt-3 d-flex flex-column gap-3">
+        <div class="table-responsive text-nowrap rounded-3">
+            <table class="table align-middle bg-white w-100 overflow-hidden p-0 m-0">
+                <thead class="text-center" style="background-color: #6BB3F2; color: rgb(0, 0, 0);">
+                    <tr>
+                        <th colspan="6">Awaiting Moderation</th>
+                    </tr>
+                </thead>
+                <thead style="color:rgb(0, 0, 0); background-color: #4586c0;">
+                    <tr class="text-center">
+                        <th>Sender</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th class="w-50">Message</th>
+                        <th>Quick Action</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr class="border-bottom-1">
+                        <td class="text-start">
+                            <img src="/img/jinx.png" style="height: 32px; width: 32px;" class="profile-img" />
+                            <span>Jeży Kabura</span>
+                        </td>
+                        <td>
+                            23.03.2023 <br>
+                            6min temu
+                        </td>
+                        <td>
+                            Topic
+                        </td>
+                        <td>
+                            Wulgarne treści
+                        </td>
+                        <td>
+                            Bla bla Bla
+                        </td>
+                        <td class="d-flex flex-column gap-2">
+                            <button class="adm-quick-actions-button btn btn-sm btn-outline-warning fw-bold">Check</button>
+                            <button class="adm-quick-actions-button btn btn-outline-primary fw-bold">Delete</button>
+                            <button class="adm-quick-actions-button btn btn-sm btn-outline-danger fw-bold">Ban</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table class="table align-middle bg-white w-100 rounded-3 m-0 overflow-hidden">
+            <thead class="text-center" style="background-color: #6BB3F2; color: rgb(33, 33, 33);">
+                <tr class="">
+                    <th colspan="4">Last Moderation Actions</th>
+                </tr>
+            </thead>
+            <thead style="color:rgb(0, 0, 0); background-color: #4586c0;">
+                <tr class="text-center">
+                    <th>Username</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th class="w-50">Information</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr class="border-bottom-1">
+                    <td class="text-center align-items-center text-wrap">
+                        <img src="/img/jinx.png" style="height: 32px; width: 32px;" class="profile-img" />
+                        <span>Jeży Kabura</span>
+                    </td>
+                    <td>
+                        23.03.2023 <br>
+                        6min temu
+                    </td>
+                    <td>
+                        <button class="btn btn-sm rounded-pill disabled fw-bold" style="background-color: #2ef2c8;">Online</button>
+                    </td>
+                    <td>
+                        Przywalił bana w jakimś tam topicu
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table align-middle bg-white rounded-3 m-0 overflow-hidden">
+            <thead class="text-center" style="background-color: #6BB3F2; color: rgb(0, 0, 0);">
+                <tr class="">
+                    <th colspan="4">Bans Ending Soon</th>
+                </tr>
+            </thead>
+            <thead style="color:rgb(0, 0, 0); background-color: #4586c0;">
+                <tr class="text-center">
+                    <th>Username</th>
+                    <th class="w-25">Reason</th>
+                    <th>Length</th>
+                    <th>Banned By</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr class="border-bottom-1">
+                    <td class="text-center align-items-center d-flex flex-column d-md-block">
+                        <img src="/img/jinx.png" style="height: 32px; width: 32px;" class="profile-img" />
+                        <span>Jeży Kabura</span>
+                        <span class="d-flex justify-content-center gap-2 flex-wrap pt-1">
+                            <a class="adm-quick-actions-button btn btn-sm btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style="min-width: 60px;">Extend</a>
+                            <a class="adm-quick-actions-button btn btn-sm btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#adm-panel-lift-ban-modal" style="min-width: 60px;">Lift</a>
+                        </span>
+                    </td>
+                    <td>
+                        Spamming
+                    </td>
+                    <td>
+                        <span style="color: #2ef2c8; font-weight: bold;">6d 23hrs 35min 2sek </span><span>remaining</span>
+                    </td>
+                    <td>
+                        admin
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-none d-lg-flex col-lg-1"></div>
+</div>

@@ -36,5 +36,17 @@ namespace Forum.Repositories
             }
         }
 
+        public async Task<User> FindUserByName(string profileName)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = @"select u.UserID, u.UserName, u.UserRegisteredDate, u.UserTypeID from users u
+                              where u.UserName = @Name;";
+                var result = await connection.QueryAsync<User>(query, new {Name = profileName});
+
+                return result.FirstOrDefault();
+
+            }
+        }
     }
 }

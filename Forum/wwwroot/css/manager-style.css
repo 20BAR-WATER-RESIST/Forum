@@ -1,0 +1,99 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.row{
+    max-height: fit-content;
+}
+
+#sidebar{
+    display: none;
+}
+
+#sidebar a{
+    display: flex;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    align-items: center;
+}
+
+#sidebar a img{
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+#sidebar a span{
+    color: antiquewhite;
+    font-weight: bold;
+}
+
+#sidebar a:hover{
+    background-color: #0554F2;
+    color: black;
+}
+
+
+hr{
+    margin: 8px 0px;
+}
+
+tr th{
+    border: none;
+}
+
+td{
+    justify-content: center;
+}
+
+.profile-img{
+    border-radius: 50%;
+}
+
+.adm-quick-actions-button{
+    padding: 0px;
+    font-size:small;
+}
+
+#adm-users-table thead tr th{
+    background-color: rgb(234, 255, 245);
+}
+
+#adm-users-table thead tr th,
+#adm-users-table tbody tr th,
+#adm-users-table tbody tr td
+{
+    align-items: center;
+    text-align: center;
+}
+
+#adm-users-table tbody tr th,
+#adm-users-table tbody tr td
+{
+    border-bottom: solid 1px rgb(217, 217, 217);
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+
+@media (max-width: 768px) {
+    #sidebar {
+        max-height: 280px;
+    }
+
+  }
+
+
+.offcanvas{
+    background-color: none;
+}

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Forum.Context;
 using Forum.Contracts;
+using Forum.Models;
 
 namespace Forum.Repositories
 {
@@ -13,19 +14,39 @@ namespace Forum.Repositories
             _context = context;
         }
 
-        public async Task<bool> CheckUsernameAvailability(string username)
+        public async Task<string> CheckUsernameAndUseremailAvailability(string username, string email)
         {
             using(var connection = _context.CreateConnection())
             {
-                var querry = @"select UserName as RegisterUsername from users u
-                               where u.UserName = @Username;";
+                var query = @"SELECT UserName FROM Users WHERE UserName = @Username;
+                            SELECT UserEmail FROM Users WHERE UserEmail = @Useremail;";
 
-                var results = await connection.QueryFirstOrDefaultAsync<string>(querry, new { Username = username });
+                var multiQueryResult = await connection.QueryMultipleAsync(query, new { Username = username, Useremail = email });
+                var userWithUserName = await multiQueryResult.ReadFirstOrDefaultAsync<string>();
+                var userWithEmail = await multiQueryResult.ReadFirstOrDefaultAsync<string>();
 
-                if (results == null)
-                {
-                    return true;
-                } else { return false; }
+
+                    if (string.IsNullOrEmpty(userWithUserName) && string.IsNullOrEmpty(userWithEmail))
+                    {
+                        // Nie znaleziono nazwy użytkownika ani adresu e-mail
+                        return string.Empty;
+                    }
+                    else if (!string.IsNullOrEmpty(userWithUserName) && string.IsNullOrEmpty(userWithEmail))
+                    {
+                        // Nie znaleziono nazwy użytkownika
+                        return "The provided username is already taken.";
+                    }
+                    else if (!string.IsNullOrEmpty(userWithEmail) && string.IsNullOrEmpty(userWithUserName))
+                    {
+                        // Nie znaleziono adresu e-mail
+                        return "The provided email address is already taken.";
+                    }
+                    else
+                    {
+                        // Nazwa użytkownika i adres e-mail zostały znalezione
+                        return "The provided username and email address are already taken.";
+                    }
+                
             }
         }
 
