@@ -1,4 +1,5 @@
 ﻿using Forum.Models;
+using Forum.Models.ReportSystem;
 using System.Linq.Expressions;
 
 namespace Forum.Contracts
@@ -12,5 +13,6 @@ namespace Forum.Contracts
         Task<List<Topic>> LoadBoardPageTopics(int id, int currentPage);
         Task<List<Topic>> BoardLatestHotTopics(int id);
         Task<List<Topic>> SearchTopics(string text);
+        Task<List<ReportCategory>> LoadTopicReportCategories();
     }
 }

@@ -1,0 +1,124 @@
+﻿@model PlotsModel
+
+<div class="modal fade report-modal" id="sending-topic-report-modal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Report Topic</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="needs-validation needs-validation-send-report-form" novalidate>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="datetime-input" class="form-label">Report Reason</label>
+                        <select class="form-select" name="ReportCategoryID">
+                            @foreach (var reports in Model.topicReportCategories)
+                            {
+                                <option value="@reports.ReportCategoryID">@reports.ReportCategoryName</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose valid report reason.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ban-reason-input" class="form-label">Add details here:</label>
+                        <input type="text" class="form-control" id="ban-reason-input" name="ReportMessage" required>
+                        <div class="invalid-feedback">
+                            Please provide a reason for the ban.
+                        </div>
+                    </div>
+                    <input type="hidden" id="sending-user-id" name="ReportAuthorName">
+                    <input type="hidden" id="reported-user-id" name="ReportTargetID">
+                    <input type="hidden" id="report-type" name="ReportType">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade report-modal" id="sending-comment-report-modal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Report Comment</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="needs-validation needs-validation-send-report-form" novalidate>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="datetime-input" class="form-label">Report Reason</label>
+                        <select class="form-select" name="ReportCategoryID">
+                            @foreach (var reports in Model.commentsReportCategories)
+                            {
+                                <option value="@reports.ReportCategoryID">@reports.ReportCategoryName</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose valid report reason.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ban-reason-input" class="form-label">Add details here:</label>
+                        <input type="text" class="form-control" id="ban-reason-input" name="ReportMessage" required>
+                        <div class="invalid-feedback">
+                            Please provide a reason for the ban.
+                        </div>
+                    </div>
+                    <input type="hidden" id="sending-user-id" name="ReportAuthorName">
+                    <input type="hidden" id="reported-user-id" name="ReportTargetID">
+                    <input type="hidden" id="report-type" name="ReportType">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade report-modal" id="sending-users-report-modal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Report Users</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="needs-validation needs-validation-send-report-form" novalidate>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="datetime-input" class="form-label">Report Reason</label>
+                        <select class="form-select" name="ReportCategoryID">
+                            @foreach (var reports in Model.usersReportCategories)
+                            {
+                                <option value="@reports.ReportCategoryID">@reports.ReportCategoryName</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose valid report reason.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ban-reason-input" class="form-label">Add details here:</label>
+                        <input type="text" class="form-control" id="ban-reason-input" name="ReportMessage" required>
+                        <div class="invalid-feedback">
+                            Please provide a reason for the ban.
+                        </div>
+                    </div>
+                    <input type="hidden" id="sending-user-id" name="ReportAuthorName">
+                    <input type="hidden" id="reported-user-id" name="ReportTargetID">
+                    <input type="hidden" id="report-type" name="ReportType">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

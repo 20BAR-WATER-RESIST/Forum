@@ -1,5 +1,6 @@
 using Forum.Contracts;
 using Forum.Models;
+using Forum.Models.ReportSystem;
 using Forum.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

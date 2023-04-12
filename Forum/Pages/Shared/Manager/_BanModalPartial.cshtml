@@ -1,0 +1,116 @@
+﻿<div class="modal fade" id="manager-user-provide-ban-modal" tabindex="-1" aria-labelledby="userBanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Suspend Account Panel</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="post" class="needs-validation needs-validation-ban-form" novalidate>
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="datetime-input" class="form-label">Ban user until</label>
+              <input type="datetime-local" class="form-control date-time-form-control" id="datetime-input" required>
+              <div class="invalid-feedback">
+                Please provide a valid date and time.
+              </div>
+              <div class="mb-3">
+                  <label for="ban-reason-input" class="form-label">Reason for the ban</label>
+                  <input type="text" class="form-control" id="ban-reason-input" required>
+                  <div class="invalid-feedback">
+                      Please provide a reason for the ban.
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="quick-topic-provide-ban-modal" tabindex="-1" aria-labelledby="userBanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Are you sure you want to ban this Topic?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="needs-validation needs-validation-ban-form" novalidate>
+                <div class="modal-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="" required>
+                        <label class="form-check-label" for="defaultCheck1">
+                            Yes I'm sure
+                        </label>
+                        <div class="invalid-feedback">
+                            Please check this box to confirm.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="quick-comment-provide-ban-modal" tabindex="-1" aria-labelledby="userBanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Are you sure you want to ban this Comment?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="needs-validation needs-validation-ban-form" novalidate>
+                <div class="modal-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="" required>
+                        <label class="form-check-label" for="defaultCheck1">
+                            Yes I'm sure
+                        </label>
+                        <div class="invalid-feedback">
+                            Please check this box to confirm.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="lift-ban-modal" tabindex="-1" aria-labelledby="userBanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Are you sure you want to lift this ban?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="needs-validation needs-validation-ban-form" novalidate>
+                <div class="modal-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="" required>
+                        <label class="form-check-label" for="defaultCheck1">
+                            Yes I'm sure
+                        </label>
+                        <div class="invalid-feedback">
+                            Please check this box to confirm.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

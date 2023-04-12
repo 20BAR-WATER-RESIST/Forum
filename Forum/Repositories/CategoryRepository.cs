@@ -2,6 +2,7 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Models;
+using Forum.Models.ReportSystem;
 
 namespace Forum.Repositories
 {

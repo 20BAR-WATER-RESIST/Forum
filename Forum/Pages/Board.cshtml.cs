@@ -1,6 +1,7 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Models;
+using Forum.Models.ReportSystem;
 using Forum.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

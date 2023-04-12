@@ -39,6 +39,9 @@
             @await Html.PartialAsync("./AccountPartials/LoginPartials/_LoginDynamicPartial.cshtml")
             @await Html.PartialAsync("./AccountPartials/RegistrationPartials/_RegistrationDynamicPartial.cshtml")
             @await Html.PartialAsync("./AccountPartials/ValidationPartials/_LoginToastPartial.cshtml")
+            @await Html.PartialAsync("./Reports/_SendingReportPartial.cshtml")
+            @await Html.PartialAsync("./Reports/_ReportToastPartial.cshtml")
+            @await Html.PartialAsync("./AccountPartials/ValidationPartials/_AuthenticationPartial.cshtml")
 
         </div>
     </div>
@@ -57,6 +60,7 @@
     <script src="~/js/Account/login-form-sender.js" asp-append-version="true"></script>
     <script src="~/js/Account/registration-form-sender.js" asp-append-version="true"></script>
     <script src="~/js/Account/logout.js" asp-append-version="true"></script>
+    <script src="~/js/Plots/plots-sending-reports-handler.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.js"></script>

@@ -18,41 +18,104 @@
                     <tr class="text-center">
                         <th>Sender</th>
                         <th>Date</th>
-                        <th>Type</th>
+                        <th>Target</th>
                         <th>Category</th>
                         <th class="w-50">Message</th>
                         <th>Quick Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <tr class="border-bottom-1">
-                        <td class="text-start">
-                            <img src="/img/jinx.png" style="height: 32px; width: 32px;" class="profile-img" />
-                            <span>Jeży Kabura</span>
-                        </td>
-                        <td>
-                            23.03.2023 <br>
-                            6min temu
-                        </td>
-                        <td>
-                            Topic
-                        </td>
-                        <td>
-                            Wulgarne treści
-                        </td>
-                        <td>
-                            Bla bla Bla
-                        </td>
-                        <td class="d-flex flex-column gap-2">
-                            <button class="adm-quick-actions-button btn btn-sm btn-outline-warning fw-bold">Check</button>
-                            <button class="adm-quick-actions-button btn btn-outline-primary fw-bold">Delete</button>
-                            <button class="adm-quick-actions-button btn btn-sm btn-outline-danger fw-bold">Ban</button>
-                        </td>
-                    </tr>
+                    
+                    @foreach(var reports in Model.loadReports)
+                    {
+                        
+                        <tr class="border-bottom-1" report-row-number="@reports.ReportID">
+                            <td class="text-start">
+                                <img src="/img/jinx.png" style="height: 32px; width: 32px;" class="profile-img" />
+                                <a asp-page="/Account/Profile" asp-route-profilename="@reports.User.UserName" style="text-decoration: none; color: black;">@reports.User.UserName</a>
+                            </td>
+                            <td>
+                                @reports.ReportAddedDate
+                            </td>
+                            <td>
+                                @reports.ReportType
+                            </td>
+                            <td>
+                                @reports.ReportCategory.ReportCategoryName
+                            </td>
+                            <td>
+                                @{
+                                    if(reports.ReportMessage == null)
+                                    {
+                                        <span>Brak</span>
+                                    }
+                                    else
+                                    {
+                                        @reports.ReportMessage
+                                    }
+                                }
+                            </td>
+                            <td class="d-flex flex-column gap-2">
+
+                                @{
+                                    switch (reports.ReportType)
+                                    {
+                                        case "Users":
+                                            <a class="adm-quick-actions-button btn btn-sm btn-outline-warning fw-bold" asp-page="/Account/Profile" asp-route-profilename="@reports.ReportTargetUsername">Check</a>
+                                            break;
+                                        case "Topic":
+                                            <a class="adm-quick-actions-button btn btn-sm btn-outline-warning fw-bold" asp-page="/Plots" asp-route-id="@reports.ReportTargetID">Check</a>
+                                            break;
+                                        case "Comment":
+                                            <a class="adm-quick-actions-button btn btn-sm btn-outline-warning fw-bold" onclick="loadComment(@reports.ReportTargetID)">Check</a>
+                                            break;
+                                    }
+                                }
+
+                                <button class="adm-quick-actions-button btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal" data-bs-target="#delete-report-modal" onclick="setID(@reports.ReportID)">Delete</button>
+
+                                @{
+                                    switch (reports.ReportType)
+                                    {
+                                        case "Users":
+                                            @if (reports.TargetUserAccountStatus != null && reports.TargetUserAccountStatus == true)
+                                            {
+                                                <button class="adm-quick-actions-button btn btn-sm btn-outline-danger fw-bold manager-ban-button" data-bs-toggle="modal" data-bs-target="#manager-user-provide-ban-modal" onclick="setIDSetType(@reports.ReportTargetID,'@reports.ReportType')">Ban</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="adm-quick-actions-button btn btn-sm btn-outline-danger fw-bold manager-ban-button disabled">Banned</button>
+                                            }
+                                            break;
+                                        case "Topic":
+                                            @if (reports.TargetTopicAccountStatus != null && reports.TargetTopicAccountStatus == true)
+                                            {
+                                                <button class="adm-quick-actions-button btn btn-sm btn-outline-danger fw-bold manager-ban-button" data-bs-toggle="modal" data-bs-target="#quick-topic-provide-ban-modal" onclick="setIDSetType(@reports.ReportTargetID,'@reports.ReportType')">Ban</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="adm-quick-actions-button btn btn-sm btn-outline-danger fw-bold manager-ban-button disabled">Banned</button>
+                                            }
+                                            break;
+                                        case "Comment":
+                                            <button class="adm-quick-actions-button btn btn-sm btn-outline-danger fw-bold manager-ban-button" data-bs-toggle="modal" data-bs-target="#quick-comment-provide-ban-modal" onclick="setIDSetType(@reports.ReportTargetID,'@reports.ReportType')">Ban</button>
+                                            break;
+                                    }
+                                }
+
+                               
+                            </td>
+                        </tr>
+                        
+                    }
+                    
                 </tbody>
             </table>
         </div>
-        <table class="table align-middle bg-white w-100 rounded-3 m-0 overflow-hidden">
+
+        <!--*************Do Implementacji*****************-->
+
+@*        <table class="table align-middle bg-white w-100 rounded-3 m-0 overflow-hidden">
             <thead class="text-center" style="background-color: #6BB3F2; color: rgb(33, 33, 33);">
                 <tr class="">
                     <th colspan="4">Last Moderation Actions</th>
@@ -84,7 +147,8 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table>*@
+
         <table class="table align-middle bg-white rounded-3 m-0 overflow-hidden">
             <thead class="text-center" style="background-color: #6BB3F2; color: rgb(0, 0, 0);">
                 <tr class="">
@@ -93,34 +157,38 @@
             </thead>
             <thead style="color:rgb(0, 0, 0); background-color: #4586c0;">
                 <tr class="text-center">
-                    <th>Username</th>
+                    <th>Banned User</th>
                     <th class="w-25">Reason</th>
-                    <th>Length</th>
-                    <th>Banned By</th>
+                    <th>Until</th>
+                    <th>Quick Action</th>
                 </tr>
             </thead>
             <tbody class="text-center">
+                @foreach(var bannedUsers in Model.loadBansEndingSoon)
+                {
                 <tr class="border-bottom-1">
-                    <td class="text-center align-items-center d-flex flex-column d-md-block">
+                    <td class="align-items-center text-start d-flex d-md-block">
                         <img src="/img/jinx.png" style="height: 32px; width: 32px;" class="profile-img" />
-                        <span>Jeży Kabura</span>
+                        <a asp-page="/Account/Profile" asp-route-profilename="@bannedUsers.UserName" style="text-decoration: none; color: black;">@bannedUsers.UserName</a>
+                    </td>
+                    <td>
+                        @bannedUsers.UserBanReason
+                    </td>
+                    <td>
+                        <span style="color: #2ef2c8; font-weight: bold;">@bannedUsers.UserBannedTime</span>
+                    </td>
+                    <td>
                         <span class="d-flex justify-content-center gap-2 flex-wrap pt-1">
-                            <a class="adm-quick-actions-button btn btn-sm btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style="min-width: 60px;">Extend</a>
-                            <a class="adm-quick-actions-button btn btn-sm btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#adm-panel-lift-ban-modal" style="min-width: 60px;">Lift</a>
+                                <a class="adm-quick-actions-button btn btn-sm btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#manager-user-provide-ban-modal" style="min-width: 60px;" onclick="setIDSetType(@bannedUsers.UserID,'Users')">Extend</a>
+                                <a class="adm-quick-actions-button btn btn-sm btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#lift-ban-modal" style="min-width: 60px;" onclick="setID(@bannedUsers.UserID)">Lift</a>
                         </span>
                     </td>
-                    <td>
-                        Spamming
-                    </td>
-                    <td>
-                        <span style="color: #2ef2c8; font-weight: bold;">6d 23hrs 35min 2sek </span><span>remaining</span>
-                    </td>
-                    <td>
-                        admin
-                    </td>
                 </tr>
+                }
             </tbody>
         </table>
     </div>
     <div class="d-none d-lg-flex col-lg-1"></div>
 </div>
+
+@await Html.PartialAsync("Shared/Manager/_DeleteReportModal")

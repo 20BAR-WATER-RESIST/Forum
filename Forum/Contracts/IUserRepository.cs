@@ -1,4 +1,5 @@
 ﻿using Forum.Models;
+using Forum.Models.ReportSystem;
 
 namespace Forum.Contracts
 {
@@ -6,5 +7,6 @@ namespace Forum.Contracts
     {
         Task<User> FindUserByName(string profileName);
         Task<User> LoadUserProfileHeader(string profileName);
+        Task<List<ReportCategory>> LoadUsersReportCategories();
     }
 }

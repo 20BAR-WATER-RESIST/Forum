@@ -2,6 +2,7 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Models;
+using Forum.Models.ReportSystem;
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
@@ -78,6 +79,20 @@ namespace Forum.Repositories
                     sql: query,
                     param: new { Name = name }
                 );
+
+                return results.ToList();
+            }
+        }
+
+        public async Task<List<ReportCategory>> LoadCommentsReportCategories()
+        {
+            using (var connection = _context.CreateConnection())
+            {
+
+                var query = @"select * from reportcategory rc
+                              where rc.ReportCategoryTarget = 'Comment' and rc.IsActive = true;";
+
+                var results = await connection.QueryAsync<ReportCategory>(query);
 
                 return results.ToList();
             }

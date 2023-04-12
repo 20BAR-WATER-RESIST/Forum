@@ -18,7 +18,7 @@ namespace Forum.Models
         public bool IsActive { get; set; }
         public int? CommentCount { get; set; }
 
-        public string? CoommentAuthor { get; set; }
+        public string? CommentAuthor { get; set; }
         public int UserID { get; set; }
         public User User { get; set; }
         public int TopicID { get; set; }

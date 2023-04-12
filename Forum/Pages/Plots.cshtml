@@ -6,7 +6,7 @@
 
 <div class="col-12 gy-0 m-0 p-0" style="background-color: none;">
     <div class="row gy-3 gx-0 justify-content-center d-flex flex-column commentery-flex-centering">
-        @foreach(var topics in Model.dapperTest){
+        @foreach(var topics in Model.plotsHolder){
             <div class="col-12 post-col" style="background-color: #F2F2F2">
                 <div class="post m-0 p-0 g-0 d-inline-flex shadow-sm">
                     <div class="info-area">
@@ -14,6 +14,14 @@
                             <a class="nav-link text-decoration-none fw-bold" asp-page="/Account/Profile" asp-route-profileName="@topics.Users.UserName">@topics.Users.UserName</a>
                             <img src="~/img/user-profile.png" />
                             <span>@topics.Users.UserTypes.UserTypeName</span>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#sending-users-report-modal" data-sending-user-id="@User.Identity.Name" data-reported-user-id="@topics.Users.UserID" data-report-type="Users"><img src="~/img/exclamation-mark.png" style="width: 32px; height: 32px;" /></a>
+                            }
+                            else
+                            {
+                                <a onclick="showErrorToast()" class="btn p-0 border-0"><img src="~/img/exclamation-mark.png" style="width: 32px; height: 32px;" /></a>
+                            }
                         </div>
                         <div class="topic-info d-flex flex-column p-4">
                             <span class="plots-topic-title d-inline-flex justify-content-between commentery-flex-centering">
@@ -32,7 +40,14 @@
                             <img src="~/img/minus-button.png" />
                         </span>
                         <span>
-                            <img src="~/img/exclamation-mark.png" />
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#sending-topic-report-modal" data-sending-user-id="@User.Identity.Name" data-reported-user-id="@topics.TopicID" data-report-type="Topic"><img src="~/img/exclamation-mark.png" /></a>
+                            }
+                            else
+                            {
+                                <a onclick="showErrorToast()" class="btn p-0 border-0"><img src="~/img/exclamation-mark.png" /></a>
+                            }
                         </span>
                     </div>
                 </div>
@@ -54,12 +69,12 @@
 
             <div class="col-6">
                 <div class="alert alert-primary text-center" role="alert">
-                    Adding comments for <a asp-page="/Account/Login" class="alert-link">logged in</a> only.
+                    Adding comments for <a class="alert alert-link p-0 border-0" data-bs-toggle="modal" data-bs-target="#loginModal">logged in</a> only.
                 </div>
             </div>
         }
 
-        @foreach(var comments in Model.dapperComments){
+        @foreach(var comments in Model.commentsHolder){
         <div class="col-12 post-col" style="background-color: #F2F2F2">
             <div class="post m-0 p-0 g-0 d-inline-flex shadow-sm">
                 <div class="info-area">
@@ -67,11 +82,19 @@
                         <a class="nav-link text-decoration-none fw-bold" asp-page="/Account/Profile" asp-route-profileName="@comments.User.UserName">@comments.User.UserName</a>
                         <img src="~/img/user-profile.png" />
                         <span>@comments.User.UserTypes.UserTypeName</span>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#sending-users-report-modal" data-sending-user-id="@User.Identity.Name" data-reported-user-id="@comments.UserID" data-report-type="Users"><img src="~/img/exclamation-mark.png" style="width: 32px; height: 32px;" /></a>
+                        }
+                        else
+                        {
+                            <a onclick="showErrorToast()" class="btn p-0 border-0"><img src="~/img/exclamation-mark.png" style="width: 32px; height: 32px;" /></a>
+                        }
                     </div>
                     <div class="topic-info d-flex flex-column p-4">
                         <span class="comment-topic-title d-inline-flex justify-content-between commentery-flex-centering">
                             <span>@comments.CommentAddedTime</span>
-                            <a href="#" class="btn btn-sm btn-success align-self-center" role="button" data-bs-toggle="button">Reply</a>
+                            <a href="#" class="btn btn-sm btn-success align-self-center disabled" role="button" data-bs-toggle="button">Reply</a>
                         </span>
                         <hr>
                             @if(comments.IsActive == true){
@@ -91,7 +114,14 @@
                         <img src="~/img/minus-button.png" />
                     </span>
                     <span>
-                        <img src="~/img/exclamation-mark.png" />
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                                <a data-bs-toggle="modal" class="btn p-0 border-0" data-bs-target="#sending-comment-report-modal" data-sending-user-id="@User.Identity.Name" data-reported-user-id="@comments.CommentID" data-report-type="Comment"><img src="~/img/exclamation-mark.png" /></a>
+                        }
+                        else
+                        {
+                            <a onclick="showErrorToast()" class="btn p-0 border-0"><img src="~/img/exclamation-mark.png" /></a>
+                        }
                     </span>
                 </div>
             </div>

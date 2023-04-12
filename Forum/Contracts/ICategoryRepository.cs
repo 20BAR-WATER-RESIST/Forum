@@ -1,4 +1,5 @@
 ﻿using Forum.Models;
+using Forum.Models.ReportSystem;
 
 namespace Forum.Contracts
 {

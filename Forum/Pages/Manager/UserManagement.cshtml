@@ -1,4 +1,57 @@
 ﻿@page
 @model Forum.Pages.Manager.UserManagementModel
 @{
+    Layout = "_Layout-Manager";
 }
+
+<div class="col-12 col-md-9 col-lg-10 pt-3 p-md-5 d-flex flex-column gap-5 vh-100">
+    <div class="row d-flex flex-column flex-lg-row d-lg-inline-flex w-100m-0 p-0 g-0">
+        <div class="col-auto rounded-3 p-0">
+            <form class="row">
+                <div class="col-auto">
+                    <div class="input-group mb-3 shadow-sm">
+                        <span class="input-group-text" id="basic-addon1"><img src="/img/magn-glass.png" /></span>
+                        <input type="text" class="form-control shadow-none" placeholder="Username" aria-label="Username">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn shadow-sm" style="background-color: #1B8EF2; color: antiquewhite;">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row d-flex flex-column flex-lg-row d-lg-inline-flex w-100m-0 p-0 g-0 overflow-auto">
+        <div class="col p-0">
+            <table id="adm-users-table" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th class="w-25" scope="col">AVATAR</th>
+                        <th class="w-25" scope="col">NAME</th>
+                        <th scope="col">ADMINISTRATION</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td class="justify-content-center"><img src="/img/checkmark.png"></td>
+                        <td class="align-items-center">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#userBanModal">
+                                <img src="/img/gavel.png">
+                            </a>
+                        </td>
+                        <td><a href="#" data-bs-toggle="modal" data-bs-target="#userModal"><img src="/img/view.png" /></a></td>
+                        <td><a type="button" data-bs-toggle="modal" data-bs-target="#messageModal"><img src="/img/email.png" /></a></td>
+                        <td><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="/img/delete.png" /></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> 

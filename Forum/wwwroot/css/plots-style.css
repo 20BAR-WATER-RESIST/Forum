@@ -65,3 +65,7 @@
 .plot-comment-textarea{
     background-color: rgb(243, 242, 242);
 }
+
+.alert-link:hover {
+    cursor: pointer;
+}

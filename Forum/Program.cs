@@ -1,8 +1,9 @@
 using Forum.Context;
 using Forum.Contracts;
+using Forum.Contracts.Manager;
 using Forum.Repositories;
+using Forum.Repositories.Manager;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<ICRUD_Repository, CRUD_Repository>();
+builder.Services.AddScoped<IAdministrationDashboardRepository, AdministrationDashboardRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=>
 {
     options.Cookie.Name = "YourCookieNameHere";

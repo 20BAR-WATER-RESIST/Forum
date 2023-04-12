@@ -33,7 +33,8 @@ namespace Forum.Pages
 
         public async Task OnGet(string textContent)
         {
-            var regex = new Regex("[^a-zA-Z0-9]");
+            var regex = new Regex("[^a-zA-Z0-9 ]");
+            textContent = textContent.Trim();
 
             if (string.IsNullOrEmpty(textContent) || textContent.Length < 3 || regex.IsMatch(textContent))
             {

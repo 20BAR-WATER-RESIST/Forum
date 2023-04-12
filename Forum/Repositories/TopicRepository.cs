@@ -2,9 +2,11 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Models;
+using Forum.Models.ReportSystem;
 using MySqlX.XDevAPI.Common;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Forum.Repositories
 {
@@ -184,6 +186,20 @@ namespace Forum.Repositories
                     param: new { Text = searchString },
                     splitOn: "UserID"
                 );
+                return results.ToList();
+            }
+        }
+
+        public async Task<List<ReportCategory>> LoadTopicReportCategories()
+        {
+            using (var connection = _context.CreateConnection())
+            {
+
+                var query = @"select * from reportcategory rc
+                              where rc.ReportCategoryTarget = 'Topic' and rc.IsActive = true;";
+
+                var results = await connection.QueryAsync<ReportCategory>(query);
+
                 return results.ToList();
             }
         }

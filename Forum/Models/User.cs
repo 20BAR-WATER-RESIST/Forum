@@ -21,8 +21,8 @@ namespace Forum.Models
         [BindNever]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime UserRegisteredDate { get; set; }
-        [BindNever]
         public DateTime? UserBannedTime { get; set; }
+        public string? UserBanReason { get; set; }
         [BindNever]
         public bool IsActive { get; set; }
 

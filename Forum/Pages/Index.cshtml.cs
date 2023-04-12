@@ -1,5 +1,6 @@
 ﻿using Forum.Contracts;
 using Forum.Models;
+using Forum.Models.ReportSystem;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;

@@ -2,6 +2,7 @@
 using Forum.Context;
 using Forum.Contracts;
 using Forum.Models;
+using Forum.Models.ReportSystem;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Forum.Repositories
@@ -46,6 +47,20 @@ namespace Forum.Repositories
 
                 return result.FirstOrDefault();
 
+            }
+        }
+
+        public async Task<List<ReportCategory>> LoadUsersReportCategories()
+        {
+            using (var connection = _context.CreateConnection())
+            {
+
+                var query = @"select * from reportcategory rc
+                              where rc.ReportCategoryTarget = 'Users' and rc.IsActive = true;";
+
+                var results = await connection.QueryAsync<ReportCategory>(query);
+
+                return results.ToList();
             }
         }
     }
