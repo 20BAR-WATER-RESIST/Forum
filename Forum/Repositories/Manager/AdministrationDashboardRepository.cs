@@ -40,13 +40,13 @@ namespace Forum.Repositories.Manager
                                        WHEN rb.ReportType = 'Comment' THEN u2.UserName
                                        ELSE NULL
                                    END as CommentAuthor
-                            FROM ReportBase rb
-                            LEFT JOIN ReportCategory rc ON rb.ReportCategoryID = rc.ReportCategoryID AND rc.IsActive = true
-                            LEFT JOIN Topics t on rb.ReportTargetID = t.TopicID AND rb.ReportType = 'Topic'
-                            LEFT JOIN Users u ON rb.ReportAuthor = u.UserID
-                            LEFT JOIN Users tu ON rb.ReportTargetID = tu.UserID AND rb.ReportType = 'Users'
-                            LEFT JOIN Comments c ON rb.ReportTargetID = c.CommentID AND rb.ReportType = 'Comment'
-                            LEFT JOIN Users u2 ON c.UserID = u2.UserID
+                            FROM reportbase rb
+                            LEFT JOIN reportcategory rc ON rb.ReportCategoryID = rc.ReportCategoryID AND rc.IsActive = true
+                            LEFT JOIN topics t on rb.ReportTargetID = t.TopicID AND rb.ReportType = 'Topic'
+                            LEFT JOIN users u ON rb.ReportAuthor = u.UserID
+                            LEFT JOIN users tu ON rb.ReportTargetID = tu.UserID AND rb.ReportType = 'Users'
+                            LEFT JOIN comments c ON rb.ReportTargetID = c.CommentID AND rb.ReportType = 'Comment'
+                            LEFT JOIN users u2 ON c.UserID = u2.UserID
                             WHERE rb.IsActive = true
                             ORDER BY ReportAddedDate DESC;";
 
@@ -102,7 +102,7 @@ namespace Forum.Repositories.Manager
         {
             using(var connection = _context.CreateConnection())
             {
-                var query = "DELETE FROM ReportBase WHERE ReportID = @ID;";
+                var query = "DELETE FROM reportbase WHERE ReportID = @ID;";
 
                 await connection.ExecuteAsync(query, param: new { ID = reportId });
             }

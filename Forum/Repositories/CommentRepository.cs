@@ -45,7 +45,7 @@ namespace Forum.Repositories
                               ut.UserTypeName
                               FROM comments c
                               INNER JOIN users u ON c.UserID = u.UserID
-                              INNER JOIN UsersTypes ut ON u.UserTypeID = ut.UserTypeID
+                              INNER JOIN userstypes ut ON u.UserTypeID = ut.UserTypeID
                               WHERE c.TopicID = @TopicId
                               order by c.CommentAddedTime asc
                               limit 10 offset @PageNumber;";

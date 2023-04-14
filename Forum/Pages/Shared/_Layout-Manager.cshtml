@@ -21,7 +21,7 @@
                 <button id="menuToggler" class="btn btn-lg col-12 border-0 rounded-0" style="background-color: #056CF2"><img src="/img/more.png" /></button>
             </div>
             <div id="sidebar" class="col-12 col-md-3 col-lg-2 d-md-flex flex-column pt-1 p-md-3 text-md-start text-wrap vh-100" style="background-color: #1B8EF2; color: antiquewhite;">
-                <a href="" class="rounded-3 justify-content-center justify-content-md-start">
+                <a asp-page="/Index" class="rounded-3 justify-content-center justify-content-md-start">
                     <img src="/img/home-icon.png" style="width: 32px; height: 32px;" />
                     <span style="font-size: larger;">Forum</span>
                 </a>
@@ -39,7 +39,7 @@
                     <span>Team Members</span>
                 </a>
                 <hr>
-                <a href="" class="rounded-3 justify-content-center justify-content-md-start">
+                <a class="btn btn-link rounded-3 justify-content-center justify-content-md-start" id="sign-out">
                     <img src="/img/log-out.png" />
                     <span>Sign Out</span>
                 </a>
@@ -55,6 +55,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Account/logout.js"></script>
     <script src="~/js/Manager/managerMenuHandler.js"></script>
     <script src="~/js/Manager/dashboardHandler.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>

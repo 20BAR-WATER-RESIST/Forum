@@ -18,8 +18,8 @@ namespace Forum.Repositories
         {
             using(var connection = _context.CreateConnection())
             {
-                var query = @"SELECT UserName FROM Users WHERE UserName = @Username;
-                            SELECT UserEmail FROM Users WHERE UserEmail = @Useremail;";
+                var query = @"SELECT UserName FROM users WHERE UserName = @Username;
+                            SELECT UserEmail FROM users WHERE UserEmail = @Useremail;";
 
                 var multiQueryResult = await connection.QueryMultipleAsync(query, new { Username = username, Useremail = email });
                 var userWithUserName = await multiQueryResult.ReadFirstOrDefaultAsync<string>();
