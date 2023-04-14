@@ -11,7 +11,7 @@ hasło: demoadmin
 
 zwykły użytkownik:<br />
 login: demo@gmail.com <br />
-hasło: demo
+hasło: demotest
 
 TECHNOLOGIA: Asp .NET Core Razor Pages <br />
 BAZA DANYCH: MYSQL <br />
