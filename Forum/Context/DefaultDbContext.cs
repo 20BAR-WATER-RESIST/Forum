@@ -1,18 +1,17 @@
 ﻿using Forum.Models;
+using Forum.Security;
 using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace Forum.Context
 {
-    public class DefaultDbContext
+    public class DefaultDbContext : GetConnection
     {
-        private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
-        public DefaultDbContext(IConfiguration configuration)
+        public DefaultDbContext()
         {
-            _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("ForumConnectionString");
+            _connectionString = AccessSecretVersion();
         }
 
         public IDbConnection CreateConnection() => new MySqlConnection(_connectionString);
